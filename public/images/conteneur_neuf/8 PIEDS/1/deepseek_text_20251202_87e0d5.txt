@@ -1,0 +1,14 @@
+votre-projet/
+├── admin/
+│   └── gestion_conteneurs.php (ce fichier)
+├── uploads/
+│   └── reefer/
+│       ├── principales/
+│       │   └── principale_reefer_xxxxxxxx_xxxxxxxx.jpg
+│       └── secondaires/
+│           ├── secondaire_reefer_xxxxxxxx_xxxxxxxx.jpg
+│           └── secondaire_reefer_xxxxxxxx_xxxxxxxx.jpg
+├── config/
+│   └── database.php
+└── images/
+    └── image_logo.jpeg

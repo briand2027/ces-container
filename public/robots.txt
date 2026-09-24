@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+Disallow: /admin
+Disallow: /panier
+Disallow: /commande
+Disallow: /recherche
+Disallow: /langue/
+
+Sitemap: https://containerequipmentservices.lt/sitemap.xml
