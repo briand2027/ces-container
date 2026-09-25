@@ -1,4 +1,49 @@
 <?php
-use Illuminate\Support\Facades\Route;use App\Http\Controllers\Admin\{AuthController,DashboardController,ContainerController,CategoryController,ServiceController,ClientController,OrderController,MessageController,SettingsController};
-Route::post('admin/conteneurs/bulk-destroy',[ContainerController::class,'bulkDestroy'])->middleware('admin')->name('admin.conteneurs.bulk-destroy');
-Route::prefix('admin')->name('admin.')->group(function(){Route::get('/login',[AuthController::class,'login'])->name('login');Route::post('/login',[AuthController::class,'authenticate'])->name('authenticate');Route::post('/logout',[AuthController::class,'logout'])->name('logout');Route::middleware('admin')->group(function(){Route::get('/',[DashboardController::class,'index'])->name('dashboard');Route::resource('conteneurs',ContainerController::class)->except(['show']);Route::get('galerie',[ContainerController::class,'gallery'])->name('gallery');Route::resource('categories',CategoryController::class)->except(['show']);Route::post('categories/{category}/statut',[CategoryController::class,'toggleStatus'])->name('categories.toggle');Route::resource('services',ServiceController::class)->except(['show']);Route::resource('clients',ClientController::class)->except(['show']);Route::get('clients/{client}',[ClientController::class,'show'])->name('clients.show');Route::get('commandes',[OrderController::class,'index'])->name('orders.index');Route::get('commandes/{order}',[OrderController::class,'show'])->name('orders.show');Route::post('commandes/{order}/payer',[OrderController::class,'markPaid'])->name('orders.paid');Route::put('commandes/{order}/statut',[OrderController::class,'status'])->name('orders.status');Route::get('messages',[MessageController::class,'index'])->name('messages.index');Route::get('messages/unread-count',[MessageController::class,'unreadCount'])->name('messages.unread-count');Route::delete('messages',[MessageController::class,'bulkDestroy'])->name('messages.bulk-destroy');Route::post('messages/{message}/statut',[MessageController::class,'toggleRead'])->name('messages.toggle-read');Route::get('messages/{message}',[MessageController::class,'show'])->name('messages.show');Route::post('messages/{message}/repondre',[MessageController::class,'reply'])->name('messages.reply');Route::delete('messages/{message}',[MessageController::class,'destroy'])->name('messages.destroy');Route::get('parametres',[SettingsController::class,'edit'])->name('settings.edit');Route::put('parametres',[SettingsController::class,'update'])->name('settings.update');});});
+
+use App\Http\Controllers\Admin\AuthController;
+use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\ClientController;
+use App\Http\Controllers\Admin\ContainerController;
+use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\MessageController;
+use App\Http\Controllers\Admin\OrderController;
+use App\Http\Controllers\Admin\ServiceController;
+use App\Http\Controllers\Admin\SettingsController;
+use Illuminate\Support\Facades\Route;
+
+Route::post('admin/conteneurs/bulk-destroy', [ContainerController::class, 'bulkDestroy'])
+    ->middleware('admin')
+    ->name('admin.conteneurs.bulk-destroy');
+
+Route::prefix('admin')->name('admin.')->group(function () {
+    Route::get('/login', [AuthController::class, 'login'])->name('login');
+    Route::post('/login', [AuthController::class, 'authenticate'])->name('authenticate');
+    Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+
+    Route::middleware('admin')->group(function () {
+        Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
+        Route::resource('conteneurs', ContainerController::class)->except(['show']);
+        Route::get('galerie', [ContainerController::class, 'gallery'])->name('gallery');
+        Route::resource('categories', CategoryController::class)->except(['show']);
+        Route::post('categories/{category}/statut', [CategoryController::class, 'toggleStatus'])->name('categories.toggle');
+        Route::resource('services', ServiceController::class)->except(['show']);
+        Route::resource('clients', ClientController::class)->except(['show']);
+        Route::get('clients/{client}', [ClientController::class, 'show'])->name('clients.show');
+
+        Route::get('commandes', [OrderController::class, 'index'])->name('orders.index');
+        Route::get('commandes/{order}', [OrderController::class, 'show'])->name('orders.show');
+        Route::post('commandes/{order}/payer', [OrderController::class, 'markPaid'])->name('orders.paid');
+        Route::put('commandes/{order}/statut', [OrderController::class, 'status'])->name('orders.status');
+
+        Route::get('messages', [MessageController::class, 'index'])->name('messages.index');
+        Route::get('messages/unread-count', [MessageController::class, 'unreadCount'])->name('messages.unread-count');
+        Route::post('messages', [MessageController::class, 'bulkDestroy'])->name('messages.bulk-destroy');
+        Route::post('messages/{message}/statut', [MessageController::class, 'toggleRead'])->name('messages.toggle-read');
+        Route::get('messages/{message}', [MessageController::class, 'show'])->name('messages.show');
+        Route::post('messages/{message}/repondre', [MessageController::class, 'reply'])->name('messages.reply');
+        Route::delete('messages/{message}', [MessageController::class, 'destroy'])->name('messages.destroy');
+
+        Route::get('parametres', [SettingsController::class, 'edit'])->name('settings.edit');
+        Route::put('parametres', [SettingsController::class, 'update'])->name('settings.update');
+    });
+});
