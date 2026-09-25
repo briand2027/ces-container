@@ -82,7 +82,27 @@ DB_PASSWORD=
 Par défaut, le projet utilise `MAIL_MAILER=log` afin que l'absence de SMTP ne bloque pas les commandes pendant les tests.
 Pour un vrai envoi, renseigner un SMTP dans `.env`.
 
-### 6. Lancer
+### 6. E-mail Hostinger en production
+Dans le `.env` de production (sur le serveur, jamais dans Git), utiliser les paramètres SMTP Hostinger suivants :
+
+```text
+MAIL_MAILER=smtp
+MAIL_SCHEME=smtps
+MAIL_HOST=smtp.hostinger.com
+MAIL_PORT=465
+MAIL_USERNAME=adresse complète de la boîte Hostinger
+MAIL_PASSWORD=mot de passe de cette boîte
+MAIL_FROM_ADDRESS=la même adresse de boîte
+MAIL_FROM_NAME="C.E.S. Container"
+```
+
+Dans **Administration > Paramètres**, l'adresse principale d'envoi doit être la même boîte Hostinger authentifiée. Configurez les deux destinataires des messages de contact et le destinataire des commandes dans cette page, puis exécutez `php artisan config:clear` après toute modification du `.env` de production. Hostinger documente aussi `smtp.hostinger.com:587` avec STARTTLS comme alternative si le port 465 échoue.
+
+Pour cette alternative, remplacer `MAIL_SCHEME=smtps` par `MAIL_SCHEME=smtp` et `MAIL_PORT=465` par `MAIL_PORT=587`.
+
+Les messages envoyés depuis le formulaire sont enregistrés dans la table des messages et transmis aux destinataires configurés ; les réponses admin et les notifications de commande partent par SMTP. Les e-mails envoyés directement à une adresse Hostinger sont reçus dans la boîte Hostinger (Webmail ou client IMAP `imap.hostinger.com:993`, SSL). L'application Laravel ne relève pas cette boîte et n'importe pas automatiquement ces e-mails dans son espace admin.
+
+### 7. Lancer
 Option A, avec le serveur Laravel :
 ```text
 php artisan serve
@@ -92,13 +112,13 @@ Puis ouvrir `http://127.0.0.1:8000`.
 Option B, avec Apache XAMPP :
 ouvrir `http://localhost/ces-container/public`.
 
-### 7. Administration
+### 8. Administration
 La connexion admin est accessible via :
 `/admin/login`
 
 Utiliser un compte administrateur existant dans la base SQL importée.
 
-### 8. Première vérification
+### 9. Première vérification
 Après installation :
 ```text
 php artisan route:list
