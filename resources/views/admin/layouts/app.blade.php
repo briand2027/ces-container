@@ -110,5 +110,6 @@ document.addEventListener('DOMContentLoaded', () => {
     animated.forEach((item) => observer.observe(item));
 });
 </script>
+@stack('scripts')
 </body>
 </html>
