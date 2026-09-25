@@ -17,11 +17,12 @@ class ContactController extends Controller
             'sujet'=>'required|string|max:200','message'=>'required|string|max:5000'
         ]);
         $msg=ContactMessage::create($data+['statut'=>'non_lu']);
+        $sender=SystemSetting::getValue('email_expediteur_principal') ?: SystemSetting::getValue('entreprise_email');
         $recipients=array_values(array_unique(array_filter([
+            $sender,
             SystemSetting::getValue('email_notification_contact'),
             SystemSetting::getValue('email_notification_contact_2'),
         ])));
-        $sender=SystemSetting::getValue('email_expediteur_principal') ?: SystemSetting::getValue('entreprise_email');
         if($recipients){
             try { Mail::mailer('smtp')->raw("Nouveau message de contact\n\nNom : {$msg->prenom} {$msg->nom}\nEmail : {$msg->email}\nTéléphone : {$msg->telephone}\nSujet : {$msg->sujet}\n\n{$msg->message}",
                 function(Message $mail) use($recipients,$msg,$sender){
