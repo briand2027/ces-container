@@ -21,12 +21,30 @@ class CheckoutController extends Controller
         ]);
         try { $order=$orders->create($data,$cart); } catch (\RuntimeException $e) { return back()->withErrors(['cart'=>$e->getMessage()])->withInput(); }
         $cart->clear();
-        $notification=SystemSetting::getValue('email_notification_commande');
+
+        $sender=SystemSetting::getValue('email_expediteur_principal') ?: SystemSetting::getValue('entreprise_email');
+        $recipients=array_values(array_unique(array_filter([
+            $sender,
+            SystemSetting::getValue('email_notification_contact'),
+            SystemSetting::getValue('email_notification_contact_2'),
+            SystemSetting::getValue('email_notification_commande'),
+        ])));
+        foreach ($recipients as $recipient) {
+            try {
+                Mail::mailer('smtp')->to($recipient)->send(new OrderCreatedMail($order));
+            } catch (\Throwable $e) {
+                Log::error('Commande créée mais notification email échouée', [
+                    'order_id'=>$order->id,
+                    'recipient'=>$recipient,
+                    'error'=>$e->getMessage(),
+                ]);
+            }
+        }
+
         try {
-            if ($notification) Mail::to($notification)->send(new OrderCreatedMail($order));
-            Mail::to($order->client->email)->send(new OrderCreatedMail($order, true));
+            Mail::mailer('smtp')->to($order->client->email)->send(new OrderCreatedMail($order, true));
         } catch (\Throwable $e) {
-            Log::error('Commande créée mais notification email échouée', ['order_id'=>$order->id,'error'=>$e->getMessage()]);
+            Log::error('Commande créée mais confirmation client email échouée', ['order_id'=>$order->id,'error'=>$e->getMessage()]);
         }
         return redirect()->route('checkout.success',$order)->with('order_created',true);
     }
