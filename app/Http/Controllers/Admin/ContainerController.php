@@ -47,8 +47,11 @@ class ContainerController extends Controller
         return back()->with('success','Conteneur supprimé.');
     }
     public function bulkDestroy(Request $request, ImageUploadService $images){
-        $ids = collect($request->input('selected_ids', []))->filter(fn($id) => ctype_digit((string)$id))->map(fn($id)=>(int)$id)->values();
-        if ($ids->isEmpty()) return back()->with('error','Sélectionnez au moins un conteneur.');
+        $validated = $request->validate([
+            'selected_ids' => ['required', 'array', 'min:1', 'max:100'],
+            'selected_ids.*' => ['required', 'integer', 'distinct', 'exists:conteneurs,id'],
+        ]);
+        $ids = collect($validated['selected_ids'])->map(fn($id) => (int) $id)->values();
         $items = Container::whereIn('id',$ids)->get();
         foreach ($items as $item) { $images->delete($item->image_principale); foreach ((array)$item->images_secondaires as $path) $images->delete($path); $item->delete(); }
         return back()->with('success',$items->count().' conteneur(s) supprimé(s).');

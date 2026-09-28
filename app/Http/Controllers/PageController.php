@@ -37,14 +37,19 @@ class PageController extends Controller
 
     public function gallery(Request $request)
     {
+        $filters = $request->validate([
+            'categorie' => ['nullable', 'integer', 'min:1', 'exists:categories,id'],
+            'type' => ['nullable', 'string', 'max:50'],
+            'page' => ['sometimes', 'integer', 'min:1'],
+        ]);
         $query = Container::with('category')->where('statut', 'disponible')->whereNotNull('image_principale');
 
-        if ($request->filled('categorie')) {
-            $query->where('categorie_id', $request->integer('categorie'));
+        if (!empty($filters['categorie'])) {
+            $query->where('categorie_id', (int) $filters['categorie']);
         }
 
-        if ($request->filled('type')) {
-            $query->where('type_conteneur', $request->string('type'));
+        if (!empty($filters['type'])) {
+            $query->where('type_conteneur', $filters['type']);
         }
 
         return view('public.gallery', [

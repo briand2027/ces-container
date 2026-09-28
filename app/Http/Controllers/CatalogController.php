@@ -8,12 +8,20 @@ class CatalogController extends Controller
 {
     public function index(Request $request)
     {
+        $filters = $request->validate([
+            'categorie' => ['nullable', 'integer', 'min:1', 'exists:categories,id'],
+            'type' => ['nullable', 'string', 'max:50'],
+            'pieds' => ['nullable', 'string', 'max:50'],
+            'type_pied' => ['nullable', 'string', 'max:50'],
+            'q' => ['nullable', 'string', 'max:120'],
+            'page' => ['sometimes', 'integer', 'min:1'],
+        ]);
         $query=Container::with('category')->where('statut','disponible');
-        if($request->filled('categorie')) $query->where('categorie_id',$request->integer('categorie'));
-        if($request->filled('type')) $query->where('type_conteneur',$request->string('type'));
-        if($request->filled('pieds')) $query->where('pieds',$request->string('pieds'));
-        if($request->filled('type_pied')) $query->where('type_pied',$request->string('type_pied'));
-        if($request->filled('q')) $query->where(function($q) use($request){$term='%'.$request->string('q').'%';$q->where('reference','like',$term)->orWhere('description','like',$term)->orWhere('description_fr','like',$term)->orWhere('description_en','like',$term);});
+        if(!empty($filters['categorie'])) $query->where('categorie_id',(int) $filters['categorie']);
+        if(!empty($filters['type'])) $query->where('type_conteneur',$filters['type']);
+        if(!empty($filters['pieds'])) $query->where('pieds',$filters['pieds']);
+        if(!empty($filters['type_pied'])) $query->where('type_pied',$filters['type_pied']);
+        if(!empty($filters['q'])) $query->where(function($q) use($filters){$term='%'.trim($filters['q']).'%';$q->where('reference','like',$term)->orWhere('description','like',$term)->orWhere('description_fr','like',$term)->orWhere('description_en','like',$term);});
         $categories = Category::where('statut','actif')
             ->withCount(['containers as available_count' => fn ($q) => $q->where('statut', 'disponible')])
             ->orderBy('ordre_affichage')
@@ -46,7 +54,7 @@ class CatalogController extends Controller
             'types'=>Container::where('statut','disponible')->whereNotNull('type_conteneur')->distinct()->orderBy('type_conteneur')->pluck('type_conteneur'),
             'sizes'=>Container::where('statut','disponible')->whereNotNull('pieds')->where('pieds','<>','')->distinct()->orderByRaw('CAST(pieds AS UNSIGNED)')->pluck('pieds'),
             'footTypes'=>Container::where('statut','disponible')->whereNotNull('type_pied')->where('type_pied','<>','')->distinct()->orderBy('type_pied')->pluck('type_pied'),
-            'selectedCategory'=>$categories->firstWhere('id', (int) $request->input('categorie')),
+            'selectedCategory'=>isset($filters['categorie']) ? $categories->firstWhere('id', (int) $filters['categorie']) : null,
             'vatRate'=>(float) SystemSetting::getValue('taux_tva',20),
         ]);
     }

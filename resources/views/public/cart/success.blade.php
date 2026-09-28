@@ -77,12 +77,13 @@
 @push('scripts')
 <script>
 document.addEventListener('DOMContentLoaded', () => {
-    const modal = document.getElementById('orderSuccessModal');
-    if (modal && window.bootstrap) bootstrap.Modal.getOrCreateInstance(modal).show();
+        const modal = document.getElementById('orderSuccessModal');
+        if (modal && window.bootstrap) bootstrap.Modal.getOrCreateInstance(modal).show();
 
+    const copiedLabel = @json(__('copied'));
     document.querySelectorAll('[data-copy-text]').forEach((button) => {
         button.addEventListener('click', async () => {
-            const original = button.innerHTML;
+            const originalChildren = [...button.childNodes].map((node) => node.cloneNode(true));
             try {
                 await navigator.clipboard.writeText(button.dataset.copyText);
             } catch {
@@ -95,8 +96,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 document.execCommand('copy');
                 field.remove();
             }
-            button.innerHTML = '<i class="bi bi-check2 me-1" aria-hidden="true"></i>' + @json(__('copied'));
-            window.setTimeout(() => { button.innerHTML = original; }, 1600);
+            const icon = document.createElement('i');
+            icon.className = 'bi bi-check2 me-1';
+            icon.setAttribute('aria-hidden', 'true');
+            button.replaceChildren(icon, document.createTextNode(copiedLabel));
+            window.setTimeout(() => { button.replaceChildren(...originalChildren); }, 1600);
         });
     });
 });

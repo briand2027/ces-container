@@ -10,7 +10,11 @@ class SearchController extends Controller
 {
     public function __invoke(Request $request)
     {
-        $term = trim((string)$request->input('q',''));
+        $filters = $request->validate([
+            'q' => ['nullable', 'string', 'max:120'],
+            'page' => ['sometimes', 'integer', 'min:1'],
+        ]);
+        $term = trim($filters['q'] ?? '');
         $products = Container::with('category')
             ->where('statut','disponible')
             ->when($term !== '', function($query) use ($term) {

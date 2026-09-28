@@ -69,8 +69,11 @@ class MessageController extends Controller
 
     public function bulkDestroy(Request $request)
     {
-        $ids=collect($request->input('selected_ids',[]))->filter(fn($id)=>ctype_digit((string)$id))->map(fn($id)=>(int)$id)->values();
-        if ($ids->isEmpty()) return back()->withErrors(['messages'=>'Sélectionnez au moins un message.']);
+        $validated = $request->validate([
+            'selected_ids' => ['required', 'array', 'min:1', 'max:100'],
+            'selected_ids.*' => ['required', 'integer', 'distinct', 'exists:messages_contact,id'],
+        ]);
+        $ids = collect($validated['selected_ids'])->map(fn($id) => (int) $id)->values();
         $deleted=ContactMessage::whereIn('id',$ids)->delete();
         return back()->with('success',$deleted.' message(s) supprimé(s).');
     }
