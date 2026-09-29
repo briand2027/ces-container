@@ -17,8 +17,6 @@
     </div>
 </section>
 
-<div class="section-wave"></div>
-
 <section class="services-stats-section section-reveal">
     <div class="container">
         <div class="services-stats-grid">

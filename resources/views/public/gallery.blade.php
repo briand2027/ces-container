@@ -21,8 +21,6 @@
     </div>
 </section>
 
-<div class="section-wave"></div>
-
 <main class="container py-5 section-reveal">
     <form class="filter-section mb-4" method="get" action="{{ route('gallery') }}">
         <div class="row g-3 align-items-end">

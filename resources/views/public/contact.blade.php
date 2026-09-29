@@ -13,8 +13,6 @@
     </div>
 </section>
 
-<div class="section-wave"></div>
-
 <div class="container py-5 section-reveal">
     <div class="contact-layout">
         <div class="contact-card animated-card">

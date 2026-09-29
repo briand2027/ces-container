@@ -13,8 +13,6 @@
     </div>
 </section>
 
-<div class="section-wave"></div>
-
 <section class="container py-5 section-reveal">
     <div class="section-heading">
         <span class="eyebrow green">{{ __('projects') }}</span>

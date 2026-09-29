@@ -167,12 +167,12 @@ a {
 }
 
 .page-hero {
-    min-height: 430px;
+    min-height: 620px;
     padding: 5rem 0;
 }
 
 .compact-hero {
-    min-height: 360px;
+    min-height: 620px;
 }
 
 .shop-hero {
@@ -267,14 +267,6 @@ a {
     max-width: 760px;
     margin: 0 auto 3rem;
     text-align: center;
-}
-
-.section-wave {
-    height: 64px;
-    margin-top: -32px;
-    position: relative;
-    z-index: 3;
-    background: radial-gradient(70% 110% at 50% 0%, rgba(255,255,255,.96) 0%, rgba(246,248,247,.96) 54%, transparent 55%);
 }
 
 .section-reveal,

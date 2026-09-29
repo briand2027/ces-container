@@ -4,7 +4,7 @@
 @section('robots', 'noindex,follow')
 
 @section('content')
-<section class="page-hero" style="--hero-image: url('{{ asset('images/arriere.jpg') }}')">
+<section class="page-hero bg-slideshow" style="--hero-image: url('{{ asset('images/arriere.jpg') }}'); --hero-image-2: url('{{ asset('images/transport.jpg') }}'); --hero-image-3: url('{{ asset('images/centre.png') }}')">
     <div class="container">
         <div class="page-hero-content text-white">
             <span class="eyebrow">{{ __('search') }}</span>
