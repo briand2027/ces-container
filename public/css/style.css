@@ -1743,35 +1743,56 @@ span.subcategory-link {
 .analytics-consent-banner {
     position: fixed;
     z-index: 1090;
-    right: 1rem;
-    bottom: 1rem;
-    left: 1rem;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 1.5rem;
-    width: min(100% - 2rem, 980px);
-    margin-inline: auto;
-    padding: 1.15rem 1.3rem;
-    border: 1px solid #d9e3dd;
-    border-radius: 8px;
+    top: 104px;
+    right: 24px;
+    display: grid;
+    gap: .85rem;
+    width: min(420px, calc(100vw - 32px));
+    padding: 1.2rem;
+    border: 1px solid #d8e4dd;
+    border-top: 3px solid #218553;
+    border-radius: 10px;
     background: #fff;
-    box-shadow: 0 12px 38px rgba(20, 40, 30, .2);
+    box-shadow: 0 18px 48px rgba(17, 39, 30, .2);
+    animation: analytics-consent-appear .24s ease-out both;
 }
 
 .analytics-consent-banner[hidden] {
     display: none !important;
 }
 
+.analytics-consent-heading {
+    display: flex;
+    align-items: center;
+    gap: .65rem;
+}
+
+.analytics-consent-icon {
+    display: grid;
+    width: 38px;
+    height: 38px;
+    flex: none;
+    place-items: center;
+    border-radius: 50%;
+    background: #e8f4ed;
+    color: #187247;
+    font-size: 1.1rem;
+}
+
+.analytics-consent-eyebrow {
+    color: #66766f;
+    font-size: .72rem;
+    font-weight: 750;
+}
+
 .analytics-consent-copy h2 {
-    margin: 0 0 .35rem;
+    margin: 0 0 .4rem;
     color: #183c32;
-    font-size: 1rem;
+    font-size: 1.05rem;
     font-weight: 700;
 }
 
 .analytics-consent-copy p {
-    max-width: 650px;
     margin: 0;
     color: #53645d;
     font-size: .9rem;
@@ -1780,25 +1801,36 @@ span.subcategory-link {
 
 .analytics-consent-actions {
     display: flex;
-    flex: none;
     flex-wrap: wrap;
-    justify-content: flex-end;
+    justify-content: stretch;
     gap: .55rem;
+}
+
+.analytics-consent-actions .btn {
+    flex: 1 1 140px;
+    min-height: 42px;
+    font-size: .86rem;
+    font-weight: 650;
+}
+
+@keyframes analytics-consent-appear {
+    from { opacity: 0; transform: translateY(-8px) scale(.98); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
 }
 
 @media (max-width: 680px) {
     .analytics-consent-banner {
-        align-items: stretch;
-        flex-direction: column;
-        gap: .9rem;
+        top: 88px;
+        right: 12px;
+        width: calc(100vw - 24px);
         padding: 1rem;
     }
 
-    .analytics-consent-actions {
-        justify-content: stretch;
-    }
-
     .analytics-consent-actions .btn {
-        flex: 1 1 auto;
+        flex-basis: calc(50% - .3rem);
     }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .analytics-consent-banner { animation: none; }
 }

@@ -132,6 +132,10 @@
     </div>
 </footer>
 <aside id="analyticsConsentBanner" class="analytics-consent-banner" role="dialog" aria-labelledby="analyticsConsentTitle" aria-describedby="analyticsConsentDescription" hidden>
+    <div class="analytics-consent-heading">
+        <span class="analytics-consent-icon" aria-hidden="true"><i class="bi bi-shield-check"></i></span>
+        <span class="analytics-consent-eyebrow">C.E.S. CONTAINER</span>
+    </div>
     <div class="analytics-consent-copy">
         <h2 id="analyticsConsentTitle">{{ __('analytics_consent_title') }}</h2>
         <p id="analyticsConsentDescription">{{ __('analytics_consent_description') }}</p>

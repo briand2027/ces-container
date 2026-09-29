@@ -195,7 +195,7 @@
     "show_payment_details": "Näytä maksutiedot",
     "tax_included": "sis. ALV",
     "analytics_consent_title": "Tietosuoja-asetuksesi",
-    "analytics_consent_description": "Käytämme Google Analyticsia ymmärtääksemme sivuston käyttöä. Seuranta alkaa vain, jos hyväksyt sen. Voit muuttaa valintaasi milloin tahansa.",
+    "analytics_consent_description": "Käytämme Google Analytics -evästeitä ymmärtääksemme sivuston käyttöä ja parantaaksemme sitä. Tietoja kerätään vain, jos hyväksyt sen. Voit muuttaa valintaasi milloin tahansa.",
     "analytics_consent_accept": "Hyväksy Analytics",
     "analytics_consent_reject": "Hylkää",
     "analytics_consent_settings": "Evästeasetukset"
