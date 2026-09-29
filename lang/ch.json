@@ -193,5 +193,10 @@
     "close": "Schliessen",
     "back_to_shopping": "Zurück zum Einkauf",
     "show_payment_details": "Zahlungsdetails anzeigen",
-    "tax_included": "inkl. MwSt."
+    "tax_included": "inkl. MwSt.",
+    "analytics_consent_title": "Ihre Datenschutzeinstellungen",
+    "analytics_consent_description": "Wir verwenden Google Analytics, um die Nutzung der Website zu verstehen. Die Analyse beginnt nur mit Ihrer Zustimmung. Sie können Ihre Auswahl jederzeit ändern.",
+    "analytics_consent_accept": "Analytics akzeptieren",
+    "analytics_consent_reject": "Ablehnen",
+    "analytics_consent_settings": "Cookie-Einstellungen"
 }

@@ -1739,3 +1739,66 @@ span.subcategory-link {
 .contact-detail:hover {
     color: #137c35;
 }
+
+.analytics-consent-banner {
+    position: fixed;
+    z-index: 1090;
+    right: 1rem;
+    bottom: 1rem;
+    left: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    width: min(100% - 2rem, 980px);
+    margin-inline: auto;
+    padding: 1.15rem 1.3rem;
+    border: 1px solid #d9e3dd;
+    border-radius: 8px;
+    background: #fff;
+    box-shadow: 0 12px 38px rgba(20, 40, 30, .2);
+}
+
+.analytics-consent-banner[hidden] {
+    display: none !important;
+}
+
+.analytics-consent-copy h2 {
+    margin: 0 0 .35rem;
+    color: #183c32;
+    font-size: 1rem;
+    font-weight: 700;
+}
+
+.analytics-consent-copy p {
+    max-width: 650px;
+    margin: 0;
+    color: #53645d;
+    font-size: .9rem;
+    line-height: 1.5;
+}
+
+.analytics-consent-actions {
+    display: flex;
+    flex: none;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    gap: .55rem;
+}
+
+@media (max-width: 680px) {
+    .analytics-consent-banner {
+        align-items: stretch;
+        flex-direction: column;
+        gap: .9rem;
+        padding: 1rem;
+    }
+
+    .analytics-consent-actions {
+        justify-content: stretch;
+    }
+
+    .analytics-consent-actions .btn {
+        flex: 1 1 auto;
+    }
+}

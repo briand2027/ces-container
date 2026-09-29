@@ -125,9 +125,22 @@
             </div>
         </div>
         <hr class="border-light opacity-25 my-4">
-        <div class="small opacity-75">&copy; {{ date('Y') }} C.E.S. Container. {{ __('copyright') }}</div>
+        <div class="d-flex flex-wrap justify-content-between align-items-center gap-2">
+            <div class="small opacity-75">&copy; {{ date('Y') }} C.E.S. Container. {{ __('copyright') }}</div>
+            <button id="analyticsConsentOpen" class="btn btn-link btn-sm text-light p-0" type="button">{{ __('analytics_consent_settings') }}</button>
+        </div>
     </div>
 </footer>
+<aside id="analyticsConsentBanner" class="analytics-consent-banner" role="dialog" aria-labelledby="analyticsConsentTitle" aria-describedby="analyticsConsentDescription" hidden>
+    <div class="analytics-consent-copy">
+        <h2 id="analyticsConsentTitle">{{ __('analytics_consent_title') }}</h2>
+        <p id="analyticsConsentDescription">{{ __('analytics_consent_description') }}</p>
+    </div>
+    <div class="analytics-consent-actions">
+        <button id="analyticsConsentReject" class="btn btn-outline-secondary" type="button">{{ __('analytics_consent_reject') }}</button>
+        <button id="analyticsConsentAccept" class="btn btn-success" type="button">{{ __('analytics_consent_accept') }}</button>
+    </div>
+</aside>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script>
 document.addEventListener('DOMContentLoaded', () => {
@@ -142,6 +155,81 @@ document.addEventListener('DOMContentLoaded', () => {
     }, { threshold: 0.12 });
 
     items.forEach((item) => observer.observe(item));
+
+    const measurementId = 'G-CRS835M4NZ';
+    const consentKey = 'ces-analytics-consent';
+    const banner = document.getElementById('analyticsConsentBanner');
+    const settingsButton = document.getElementById('analyticsConsentOpen');
+    let savedChoice = null;
+
+    try {
+        savedChoice = localStorage.getItem(consentKey);
+    } catch (error) {
+        banner.hidden = false;
+    }
+
+    const loadAnalytics = () => {
+        if (window.__cesAnalyticsLoaded) return;
+
+        window.dataLayer = window.dataLayer || [];
+        window.gtag = function () { window.dataLayer.push(arguments); };
+        window.gtag('consent', 'default', {
+            analytics_storage: 'denied',
+            ad_storage: 'denied',
+            ad_user_data: 'denied',
+            ad_personalization: 'denied',
+        });
+        window.gtag('consent', 'update', { analytics_storage: 'granted' });
+        window.gtag('js', new Date());
+        window.gtag('config', measurementId);
+
+        const script = document.createElement('script');
+        script.async = true;
+        script.src = `https://www.googletagmanager.com/gtag/js?id=${measurementId}`;
+        document.head.appendChild(script);
+        window.__cesAnalyticsLoaded = true;
+    };
+
+    const revokeAnalytics = () => {
+        if (window.gtag) {
+            window.gtag('consent', 'update', {
+                analytics_storage: 'denied',
+                ad_storage: 'denied',
+                ad_user_data: 'denied',
+                ad_personalization: 'denied',
+            });
+        }
+
+        const host = window.location.hostname;
+        const rootDomain = host.replace(/^www\./, '');
+        document.cookie.split(';').forEach((cookie) => {
+            const name = cookie.split('=')[0].trim();
+            if (name === '_ga' || name.startsWith('_ga_')) {
+                document.cookie = `${name}=; Max-Age=0; path=/; domain=${host}; SameSite=Lax`;
+                document.cookie = `${name}=; Max-Age=0; path=/; domain=.${rootDomain}; SameSite=Lax`;
+                document.cookie = `${name}=; Max-Age=0; path=/; SameSite=Lax`;
+            }
+        });
+    };
+
+    const saveChoice = (choice) => {
+        try {
+            localStorage.setItem(consentKey, choice);
+        } catch (error) {
+            // Keep the choice active for this page when browser storage is blocked.
+        }
+
+        if (choice === 'accepted') loadAnalytics();
+        else revokeAnalytics();
+        banner.hidden = true;
+    };
+
+    if (savedChoice === 'accepted') loadAnalytics();
+    else if (savedChoice !== 'rejected') banner.hidden = false;
+
+    document.getElementById('analyticsConsentAccept').addEventListener('click', () => saveChoice('accepted'));
+    document.getElementById('analyticsConsentReject').addEventListener('click', () => saveChoice('rejected'));
+    settingsButton.addEventListener('click', () => { banner.hidden = false; });
 });
 </script>
 @stack('scripts')

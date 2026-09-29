@@ -193,5 +193,10 @@
     "close": "Cerrar",
     "back_to_shopping": "Volver a la tienda",
     "show_payment_details": "Mostrar los datos de pago",
-    "tax_included": "IVA incluido"
+    "tax_included": "IVA incluido",
+    "analytics_consent_title": "Tus preferencias de privacidad",
+    "analytics_consent_description": "Utilizamos Google Analytics para comprender el uso del sitio. El seguimiento solo se activa si lo aceptas. Puedes cambiar tu elección en cualquier momento.",
+    "analytics_consent_accept": "Aceptar Analytics",
+    "analytics_consent_reject": "Rechazar",
+    "analytics_consent_settings": "Configuración de cookies"
 }
