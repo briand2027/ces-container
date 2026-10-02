@@ -7,7 +7,7 @@ use App\Services\CartService;
 use App\Services\OrderService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Facades\Log;
+use App\Support\IncidentLogger;
 
 class CheckoutController extends Controller
 {
@@ -33,18 +33,14 @@ class CheckoutController extends Controller
             try {
                 Mail::mailer('smtp')->to($recipient)->send(new OrderCreatedMail($order));
             } catch (\Throwable $e) {
-                Log::error('Commande créée mais notification email échouée', [
-                    'order_id'=>$order->id,
-                    'recipient'=>$recipient,
-                    'error'=>$e->getMessage(),
-                ]);
+                IncidentLogger::exception($e, 'Order notification email failed', ['operation'=>'order.notification','order_id'=>$order->id]);
             }
         }
 
         try {
             Mail::mailer('smtp')->to($order->client->email)->send(new OrderCreatedMail($order, true));
         } catch (\Throwable $e) {
-            Log::error('Commande créée mais confirmation client email échouée', ['order_id'=>$order->id,'error'=>$e->getMessage()]);
+            IncidentLogger::exception($e, 'Customer order confirmation email failed', ['operation'=>'order.confirmation','order_id'=>$order->id]);
         }
         return redirect()->route('checkout.success',$order)->with('order_created',true);
     }

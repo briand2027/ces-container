@@ -4,8 +4,8 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\ContactMessage;
 use App\Models\SystemSetting;
+use App\Support\IncidentLogger;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Mail\Message as MailMessage;
 
@@ -54,7 +54,7 @@ class MessageController extends Controller
                 $mail->from($sender,$company)->to($message->email)->replyTo($sender,$company)->subject('Re: '.$message->sujet);
             });
         } catch (\Throwable $e) {
-            Log::error('Réponse au message non envoyée',['message_id'=>$message->id,'error'=>$e->getMessage()]);
+            IncidentLogger::exception($e, 'Contact message reply email failed', ['operation'=>'message.reply','message_id'=>$message->id]);
             return back()->withErrors(['reponse'=>'L’e-mail n’a pas pu être envoyé. Vérifiez la configuration SMTP et réessayez.'])->withInput();
         }
         $message->update(['reponse'=>$data['reponse'],'statut'=>'repondu','admin_id'=>session('admin_id'),'date_reponse'=>now()]);

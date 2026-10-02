@@ -17,6 +17,7 @@
 <body class="admin-shell">
 @php($adminNav = [
     ['admin.dashboard', 'Tableau de bord', 'bi-speedometer2', 'admin.dashboard'],
+    ['admin.activity.index', 'Journal d’activité', 'bi-activity', 'admin.activity.*'],
     ['admin.conteneurs.index', 'Conteneurs', 'bi-box-seam', 'admin.conteneurs.*'],
     ['admin.gallery', 'Galerie', 'bi-images', 'admin.gallery'],
     ['admin.categories.index', 'Categories', 'bi-diagram-3', 'admin.categories.*'],
