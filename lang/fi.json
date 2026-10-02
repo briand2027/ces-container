@@ -1,5 +1,10 @@
 {
     "home": "Etusivu",
+    "error_page_title": "Sivua ei löydy",
+    "error_page_message": "Etsimäsi sivu on ehkä siirretty tai se ei ole enää saatavilla.",
+    "error_back_home": "Takaisin etusivulle",
+    "server_error_title": "Tapahtui virhe",
+    "server_error_message": "Pyyntöä ei voitu käsitellä. Yritä hetken kuluttua uudelleen.",
     "shop": "Kauppa",
     "services": "Palvelut",
     "gallery": "Galleria",

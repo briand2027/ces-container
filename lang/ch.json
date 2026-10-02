@@ -1,5 +1,10 @@
 {
     "home": "Startseite",
+    "error_page_title": "Seite nicht gefunden",
+    "error_page_message": "Die gesuchte Seite wurde möglicherweise verschoben oder ist nicht mehr verfügbar.",
+    "error_back_home": "Zur Startseite",
+    "server_error_title": "Ein Problem ist aufgetreten",
+    "server_error_message": "Die Anfrage konnte nicht abgeschlossen werden. Bitte versuchen Sie es gleich noch einmal.",
     "shop": "Shop",
     "services": "Dienstleistungen",
     "gallery": "Galerie",

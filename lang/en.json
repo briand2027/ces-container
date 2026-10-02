@@ -1,5 +1,10 @@
 {
     "home": "Home",
+    "error_page_title": "Page not found",
+    "error_page_message": "The page may have moved or is no longer available.",
+    "error_back_home": "Back to the home page",
+    "server_error_title": "Something went wrong",
+    "server_error_message": "We could not complete your request. Please try again shortly.",
     "shop": "Shop",
     "services": "Services",
     "gallery": "Gallery",

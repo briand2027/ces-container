@@ -1,5 +1,10 @@
 {
     "home": "Accueil",
+    "error_page_title": "Page introuvable",
+    "error_page_message": "La page recherchée a peut-être été déplacée ou n’est plus disponible.",
+    "error_back_home": "Retour à l’accueil",
+    "server_error_title": "Un problème est survenu",
+    "server_error_message": "La demande n’a pas pu aboutir. Réessayez dans un instant.",
     "shop": "Boutique",
     "services": "Services",
     "gallery": "Galerie",

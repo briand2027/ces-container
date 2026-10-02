@@ -3,6 +3,16 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\{HomeController,CatalogController,CartController,CheckoutController,ContactController,PageController,SearchController};
 use App\Http\Controllers\SitemapController;
 use App\Http\Controllers\MerchantFeedController;
+Route::permanentRedirect('/index.php', '/boutique');
+Route::permanentRedirect('/shop.php', '/boutique');
+Route::permanentRedirect('/contacts.php', '/contact');
+Route::permanentRedirect('/contact.php', '/contact');
+Route::permanentRedirect('/services.php', '/services');
+Route::permanentRedirect('/projects.php', '/projets');
+Route::permanentRedirect('/gallery.php', '/galerie');
+Route::permanentRedirect('/about.php', '/a-propos');
+Route::permanentRedirect('/search.php', '/recherche');
+Route::permanentRedirect('/cart.php', '/panier');
 Route::get('/langue/{locale}', function (string $locale) {
     abort_unless(array_key_exists($locale, config('locales.available')), 404);
     session(['locale' => $locale]);

@@ -1,5 +1,10 @@
 {
     "home": "Home",
+    "error_page_title": "Pagina niet gevonden",
+    "error_page_message": "De pagina is mogelijk verplaatst of niet langer beschikbaar.",
+    "error_back_home": "Terug naar de startpagina",
+    "server_error_title": "Er is iets misgegaan",
+    "server_error_message": "We konden je verzoek niet voltooien. Probeer het zo meteen opnieuw.",
     "shop": "Winkel",
     "services": "Diensten",
     "gallery": "Galerij",

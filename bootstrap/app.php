@@ -3,6 +3,7 @@ use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
 use App\Http\Middleware\AdminMiddleware;
+use App\Http\Middleware\ActivityLogMiddleware;
 use App\Http\Middleware\SetLocale;
 
 return Application::configure(basePath: dirname(__DIR__))
@@ -10,6 +11,7 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withProviders([App\Providers\AppServiceProvider::class])
     ->withMiddleware(function (Middleware $middleware) {
         $middleware->alias(['admin' => AdminMiddleware::class]);
+        $middleware->append(ActivityLogMiddleware::class);
         $middleware->web(append: [SetLocale::class]);
     })
     ->withExceptions(function (Exceptions $exceptions) {})

@@ -1,5 +1,10 @@
 {
     "home": "Home",
+    "error_page_title": "Pagina non trovata",
+    "error_page_message": "La pagina che stai cercando potrebbe essere stata spostata o non essere più disponibile.",
+    "error_back_home": "Torna alla pagina iniziale",
+    "server_error_title": "Si è verificato un problema",
+    "server_error_message": "Non è stato possibile completare la richiesta. Riprova tra poco.",
     "shop": "Negozio",
     "services": "Servizi",
     "gallery": "Galleria",
