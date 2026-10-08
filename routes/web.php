@@ -32,6 +32,7 @@ Route::delete('/panier/{id}',[CartController::class,'remove'])->name('cart.remov
 Route::delete('/panier',[CartController::class,'clear'])->name('cart.clear');
 Route::get('/commande',function(\App\Services\CartService $cart){ abort_if($cart->items()->isEmpty(),404); return view('public.cart.checkout'); })->name('checkout.form');
 Route::post('/commande',[CheckoutController::class,'store'])->name('checkout.store');
+Route::get('/demande-devis/merci',[CheckoutController::class,'quoteSuccess'])->name('quote.success');
 Route::get('/commande/{order}/succes',[CheckoutController::class,'success'])->name('checkout.success');
 Route::get('/services',[PageController::class,'services'])->name('services');Route::get('/projets',[PageController::class,'projects'])->name('projects');Route::get('/a-propos',[PageController::class,'about'])->name('about');Route::get('/galerie',[PageController::class,'gallery'])->name('gallery');
 Route::get('/contact',[ContactController::class,'create'])->name('contact');Route::post('/contact',[ContactController::class,'store'])->name('contact.store');

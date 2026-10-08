@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\ContainerController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\MessageController;
 use App\Http\Controllers\Admin\OrderController;
+use App\Http\Controllers\Admin\QuoteRequestController;
 use App\Http\Controllers\Admin\ServiceController;
 use App\Http\Controllers\Admin\SettingsController;
 use Illuminate\Support\Facades\Route;
@@ -36,6 +37,10 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::get('commandes/{order}', [OrderController::class, 'show'])->name('orders.show');
         Route::post('commandes/{order}/payer', [OrderController::class, 'markPaid'])->name('orders.paid');
         Route::put('commandes/{order}/statut', [OrderController::class, 'status'])->name('orders.status');
+
+        Route::get('devis', [QuoteRequestController::class, 'index'])->name('quotes.index');
+        Route::get('devis/{quote}', [QuoteRequestController::class, 'show'])->name('quotes.show');
+        Route::put('devis/{quote}/statut', [QuoteRequestController::class, 'status'])->name('quotes.status');
 
         Route::get('messages', [MessageController::class, 'index'])->name('messages.index');
         Route::get('messages/unread-count', [MessageController::class, 'unreadCount'])->name('messages.unread-count');

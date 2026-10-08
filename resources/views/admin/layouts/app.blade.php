@@ -24,6 +24,7 @@
     ['admin.services.index', 'Services', 'bi-tools', 'admin.services.*'],
     ['admin.clients.index', 'Clients', 'bi-people', 'admin.clients.*'],
     ['admin.orders.index', 'Commandes', 'bi-receipt', 'admin.orders.*'],
+    ['admin.quotes.index', 'Devis', 'bi-file-earmark-text', 'admin.quotes.*'],
     ['admin.messages.index', 'Messages', 'bi-envelope', 'admin.messages.*'],
 ])
 
