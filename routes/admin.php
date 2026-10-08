@@ -25,7 +25,9 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::middleware('admin')->group(function () {
         Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
         Route::get('journal', [ActivityLogController::class, 'index'])->name('activity.index');
-        Route::resource('conteneurs', ContainerController::class)->except(['show']);
+        Route::resource('conteneurs', ContainerController::class)
+            ->parameters(['conteneurs' => 'container'])
+            ->except(['show']);
         Route::get('galerie', [ContainerController::class, 'gallery'])->name('gallery');
         Route::resource('categories', CategoryController::class)->except(['show']);
         Route::post('categories/{category}/statut', [CategoryController::class, 'toggleStatus'])->name('categories.toggle');
