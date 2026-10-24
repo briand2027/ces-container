@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="{{ app()->getLocale() === 'ch' ? 'de-CH' : app()->getLocale() }}">
+<html lang="{{ $messageLocale === 'ch' ? 'de-CH' : $messageLocale }}">
 <head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
 <body style="margin:0;background:#f2f5f7;font-family:Arial,Helvetica,sans-serif;color:#1b2730">
 <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="padding:28px 12px;background:#f2f5f7"><tr><td align="center">

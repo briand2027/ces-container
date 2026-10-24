@@ -29,6 +29,7 @@ class QuoteRequestMail extends Mailable
             ->with([
                 'company' => $company,
                 'customer' => $this->customer,
+                'messageLocale' => $this->messageLocale,
                 'quote' => $this->quote,
                 'vatRate' => (float) SystemSetting::getValue('taux_tva', 20),
             ])

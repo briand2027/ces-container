@@ -76,7 +76,8 @@ class CheckoutController extends Controller
             SystemSetting::getValue('email_notification_contact'),
             SystemSetting::getValue('email_notification_contact_2'),
             SystemSetting::getValue('email_notification_commande'),
-        ]), fn ($email) => filter_var($email, FILTER_VALIDATE_EMAIL))));
+        ]), fn ($email) => filter_var($email, FILTER_VALIDATE_EMAIL)
+            && strcasecmp($email, $quote->email) !== 0)));
 
         $emailFailed = false;
         foreach ($recipients as $recipient) {
