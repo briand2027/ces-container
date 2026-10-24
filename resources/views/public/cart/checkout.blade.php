@@ -4,8 +4,8 @@
 @section('content')
 @php($checkoutItems = app(\App\Services\CartService::class)->items())
 @php($hasRental = $checkoutItems->contains(fn ($item) => $item['type'] === 'location'))
-<main class="container py-4 py-lg-5" style="max-width:1100px">
-    <div class="mb-4"><a href="{{ route('cart.index') }}" class="small text-decoration-none"><i class="bi bi-arrow-left me-1"></i>{{ __('quote.back_to_cart') }}</a><p class="text-success fw-bold text-uppercase small mt-3 mb-1">C.E.S. Container</p><h1 class="h2 mb-2">{{ __('request_quote') }}</h1><p class="text-muted mb-0">{{ __('quote.intro') }}</p></div>
+<main id="main-content" class="container py-4 py-lg-5" style="max-width:1100px">
+    <div class="mb-4"><a href="{{ route('cart.index') }}" class="small text-decoration-none"><i class="bi bi-arrow-left me-1"></i>{{ __('quote.back_to_cart') }}</a><p class="text-success fw-bold text-uppercase small mt-3 mb-1">C.E.S. Container</p><h1 class="h2 mb-2">{{ __('order.checkout_title') }}</h1><p class="text-muted mb-0">{{ __('order.checkout_intro') }}</p></div>
     <div class="row g-4 align-items-start">
         <div class="col-lg-8">
             <form method="post" action="{{ route('checkout.store') }}" class="card border-0 shadow-sm">
@@ -29,12 +29,13 @@
                     </div>
                 </div>
                 <div class="card-footer bg-white p-3 p-md-4">
-                    <div class="alert alert-info mb-3"><strong><i class="bi bi-info-circle me-1"></i>{{ __('quote.nonbinding_title') }}</strong><br>{{ __('quote.nonbinding_text') }}</div>
-                    <button class="btn btn-success btn-lg w-100"><i class="bi bi-send me-2"></i>{{ __('quote.send_request') }}</button>
+                    <div class="alert alert-info mb-3"><strong><i class="bi bi-info-circle me-1"></i>{{ __('order.confirm_warning_title') }}</strong><br>{{ __('order.confirm_warning_text') }}</div>
+                    <div class="form-check mb-3"><input class="form-check-input" type="checkbox" name="accept_terms" id="accept-order-terms" value="1" required @checked(old('accept_terms'))><label class="form-check-label" for="accept-order-terms">{{ __('order.accept_terms') }} <a href="{{ route('legal.terms') }}" target="_blank" rel="noopener">{{ __('order.terms_link') }}</a></label></div>
+                    <button class="btn btn-success btn-lg w-100"><i class="bi bi-check2-circle me-2"></i>{{ __('order.submit') }}</button>
                 </div>
             </form>
         </div>
-        <aside class="col-lg-4"><div class="card border-0 shadow-sm"><div class="card-header bg-white py-3"><h2 class="h5 mb-0"><i class="bi bi-box-seam text-success me-2"></i>{{ __('quote.selection') }}</h2></div><div class="card-body">@foreach($checkoutItems as $item)<div class="d-flex justify-content-between gap-3 py-2 {{ !$loop->last?'border-bottom':'' }}"><div><strong>{{ $item['container']->reference }}</strong><div class="small text-muted">{{ $item['type']==='location'?__('quote.rental'):__('quote.purchase') }} · {{ __('quote.quantity') }} {{ $item['quantity'] }}</div></div><span class="text-nowrap">{{ $item['unit_price'] > 0 ? number_format($item['unit_price'],2,',',' ').' €'.($item['type']==='location'?' '.__('quote.per_day'):'') : __('quote.quote_only') }}</span></div>@endforeach<div class="small text-muted mt-3">{{ __('quote.indicative_price_note') }}</div></div></div></aside>
+        <aside class="col-lg-4"><div class="card border-0 shadow-sm"><div class="card-header bg-white py-3"><h2 class="h5 mb-0"><i class="bi bi-box-seam text-success me-2"></i>{{ __('quote.selection') }}</h2></div><div class="card-body">@foreach($checkoutItems as $item)<div class="d-flex justify-content-between gap-3 py-2 {{ !$loop->last?'border-bottom':'' }}"><div><strong>{{ $item['container']->reference }}</strong><div class="small text-muted">{{ $item['type']==='location'?__('quote.rental'):__('quote.purchase') }} · {{ __('quote.quantity') }} {{ $item['quantity'] }}</div></div><span class="text-nowrap">{{ $item['unit_price'] > 0 ? number_format($item['unit_price'],2,',',' ').' €'.($item['type']==='location'?' '.__('quote.per_day'):'') : __('quote.quote_only') }}</span></div>@endforeach<div class="small text-muted mt-3">{{ __('order.displayed_price_note') }}</div></div></div></aside>
     </div>
 </main>
 @endsection

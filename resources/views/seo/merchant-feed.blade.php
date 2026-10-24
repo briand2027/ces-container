@@ -6,10 +6,16 @@
         <description>Container marittimi, moduli e attrezzature disponibili da C.E.S. Container.</description>
         @foreach($products as $product)
             @php
-                $description = trim(strip_tags((string) $product->localizedDescription()));
-                $condition = in_array(mb_strtolower((string) $product->etat), ['neuf', 'nuovo', 'new'], true) ? 'new' : 'used';
+                $description = trim(strip_tags((string) $product->description));
+                $conditionValue = mb_strtolower(trim((string) $product->etat));
+                $condition = match ($conditionValue) {
+                    'neuf', 'nuovo', 'nuova', 'new' => 'new',
+                    'occasion', 'usato', 'usata', 'used', 'seconda mano' => 'used',
+                    'reconditionne', 'reconditionné', 'ricondizionato', 'ricondizionata', 'refurbished' => 'refurbished',
+                    default => null,
+                };
             @endphp
-            @if($description !== '')
+            @if($description !== '' && $condition)
                 <item>
                     <g:id>{{ $product->id }}</g:id>
                     <g:title>{{ $product->reference }}{{ $product->category ? ' - '.$product->category->nom : '' }}{{ $product->dimensions ? ' - '.$product->dimensions : '' }}</g:title>
@@ -22,8 +28,6 @@
                     <g:availability>in_stock</g:availability>
                     <g:price>{{ number_format((float) $product->prix_vente * (1 + $vatRate / 100), 2, '.', '') }} EUR</g:price>
                     <g:condition>{{ $condition }}</g:condition>
-                    <g:brand>C.E.S. Container</g:brand>
-                    <g:identifier_exists>no</g:identifier_exists>
                 </item>
             @endif
         @endforeach

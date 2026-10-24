@@ -21,7 +21,7 @@
     </div>
 </section>
 
-<main class="container py-5 section-reveal">
+<main id="main-content" class="container py-5 section-reveal">
     <form class="filter-section mb-4" method="get" action="{{ route('gallery') }}">
         <div class="row g-3 align-items-end">
             <div class="col-md-5">

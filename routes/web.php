@@ -20,6 +20,7 @@ Route::get('/langue/{locale}', function (string $locale) {
 })->name('locale.switch');
 Route::get('/sitemap.xml', SitemapController::class)->name('sitemap');
 Route::get('/google-merchant.xml', [MerchantFeedController::class, 'index'])->name('merchant.feed');
+Route::get('/google-merchant-it.xml', [MerchantFeedController::class, 'index'])->name('merchant.feed.it');
 Route::redirect('/', '/boutique');
 Route::get('/accueil',[HomeController::class,'index'])->name('home');
 Route::get('/boutique',[CatalogController::class,'index'])->name('shop');
@@ -36,4 +37,11 @@ Route::get('/demande-devis/merci',[CheckoutController::class,'quoteSuccess'])->n
 Route::get('/commande/{order}/succes',[CheckoutController::class,'success'])->name('checkout.success');
 Route::get('/services',[PageController::class,'services'])->name('services');Route::get('/projets',[PageController::class,'projects'])->name('projects');Route::get('/a-propos',[PageController::class,'about'])->name('about');Route::get('/galerie',[PageController::class,'gallery'])->name('gallery');
 Route::get('/contact',[ContactController::class,'create'])->name('contact');Route::post('/contact',[ContactController::class,'store'])->name('contact.store');
+Route::get('/conditions-de-vente',[PageController::class,'legal'])->defaults('page','terms')->name('legal.terms');
+Route::get('/livraison',[PageController::class,'legal'])->defaults('page','delivery')->name('legal.delivery');
+Route::get('/retours-remboursements',[PageController::class,'legal'])->defaults('page','returns')->name('legal.returns');
+Route::get('/garanties-legales',[PageController::class,'legal'])->defaults('page','warranty')->name('legal.warranty');
+Route::get('/confidentialite',[PageController::class,'legal'])->defaults('page','privacy')->name('legal.privacy');
+Route::get('/mentions-legales',[PageController::class,'legal'])->defaults('page','legal-notice')->name('legal.notice');
+Route::get('/paiement',[PageController::class,'legal'])->defaults('page','payment')->name('legal.payment');
 require __DIR__.'/admin.php';

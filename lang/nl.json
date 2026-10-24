@@ -203,5 +203,6 @@
     "analytics_consent_description": "We gebruiken Google Analytics-cookies om te begrijpen hoe de website wordt gebruikt en deze te verbeteren. Gegevens worden alleen verzameld als u toestemming geeft. U kunt uw keuze altijd wijzigen.",
     "analytics_consent_accept": "Analytics accepteren",
     "analytics_consent_reject": "Weigeren",
-    "analytics_consent_settings": "Cookie-instellingen"
+    "analytics_consent_settings": "Cookie-instellingen",
+    "skip_to_content": "Naar de inhoud"
 }

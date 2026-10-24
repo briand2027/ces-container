@@ -203,5 +203,6 @@
     "analytics_consent_description": "Nous utilisons les cookies Google Analytics pour comprendre l’utilisation du site et l’améliorer. La collecte ne commence qu’avec votre accord. Vous pouvez modifier ce choix à tout moment.",
     "analytics_consent_accept": "Accepter Analytics",
     "analytics_consent_reject": "Refuser",
-    "analytics_consent_settings": "Réglages des cookies"
+    "analytics_consent_settings": "Réglages des cookies",
+    "skip_to_content": "Aller au contenu"
 }

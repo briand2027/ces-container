@@ -1,8 +1,10 @@
 @extends('layouts.app')
 @section('meta_title', __('home').' | C.E.S. Container')
 @section('meta_description', __('hero_subtitle'))
+@push('head')<link rel="preload" as="image" href="{{ asset('images/images_co.webp') }}" fetchpriority="high">@endpush
 
 @section('content')
+<main id="main-content">
 <section class="hero-section bg-slideshow" style="--hero-image: url('{{ asset('images/container_sale.jpg') }}'); --hero-image-2: url('{{ asset('images/transport.jpg') }}'); --hero-image-3: url('{{ asset('images/centre.png') }}')">
     <div class="container py-5">
         <div class="row align-items-center g-5 py-lg-5">
@@ -21,7 +23,7 @@
                 </div>
             </div>
             <div class="col-lg-5">
-                <div class="hero-image"><img src="{{ asset('images/images_co.webp') }}" alt="C.E.S. Container" class="img-fluid rounded-4 shadow-lg"></div>
+                <div class="hero-image"><img src="{{ asset('images/images_co.webp') }}" alt="C.E.S. Container" class="img-fluid rounded-4 shadow-lg" width="1600" height="1067" loading="eager" fetchpriority="high"></div>
             </div>
         </div>
     </div>
@@ -176,4 +178,5 @@
         </div>
     </div>
 </section>
+</main>
 @endsection

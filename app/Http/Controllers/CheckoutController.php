@@ -31,12 +31,18 @@ class CheckoutController extends Controller
             'numero_tva' => 'nullable|string|max:50',
             'notes' => 'nullable|string|max:3000',
             'duree_location_jours' => 'nullable|integer|min:1|max:3650',
+            'accept_terms' => 'required|accepted',
         ]);
 
-        $items = $cart->items();
-        if ($items->isEmpty()) {
-            return back()->withErrors(['cart' => 'Votre panier ne contient aucun article disponible.'])->withInput();
+        try {
+            $items = $cart->validatedLines();
+        } catch (\RuntimeException $exception) {
+            return back()->withErrors(['cart' => $exception->getMessage()])->withInput();
         }
+
+        $data['conditions_acceptees_at'] = now();
+        $data['conditions_version'] = '2026-10-24';
+        unset($data['accept_terms']);
 
         $quote = DB::transaction(function () use ($data, $items) {
             do {

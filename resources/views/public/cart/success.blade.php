@@ -3,7 +3,7 @@
 @section('meta_title', __('order_confirmed').' | C.E.S. Container')
 
 @section('content')
-<main class="container py-5">
+<main id="main-content" class="container py-5">
     <div class="text-center mb-4">
         <i class="bi bi-check-circle-fill display-3 text-success" aria-hidden="true"></i>
         <h1 class="h2 mt-3">{{ __('order_confirmed') }}</h1>

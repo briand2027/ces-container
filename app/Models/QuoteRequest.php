@@ -9,6 +9,7 @@ class QuoteRequest extends Model
 {
     protected $table = 'demandes_devis';
     protected $guarded = [];
+    protected $casts = ['conditions_acceptees_at' => 'datetime'];
 
     public function lines(): HasMany
     {

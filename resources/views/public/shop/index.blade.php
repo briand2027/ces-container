@@ -34,7 +34,7 @@
     </div>
 </section>
 
-<main class="catalog-page">
+<main id="main-content" class="catalog-page">
     <div class="container py-5">
         <nav aria-label="breadcrumb" class="mb-4">
             <ol class="breadcrumb">

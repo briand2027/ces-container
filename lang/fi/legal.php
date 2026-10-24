@@ -1,0 +1,47 @@
+<?php
+
+return [
+    'information'=>'Tiedot ja ehdot','related_pages'=>'Hyödyllistä tietoa','identity_title'=>'Julkaisija ja yhteystiedot','form'=>'Oikeudellinen muoto','registration'=>'Rekisterinumero','vat'=>'ALV-tunniste','address'=>'Yrityksen osoite','email'=>'Sähköposti','phone'=>'Puhelin',
+    'identity_incomplete'=>'Näytetyt tiedot ovat yrityksen asetuksissa määritettyjä. Rekisteri- ja ALV-tunnisteet tulee lisätä hallinta-asetuksiin, jos niitä sovelletaan.','questions_title'=>'Kysyttävää projektistasi?','questions_text'=>'Tiimimme voi selventää pyyntöäsi ja ehdotettuja ehtoja ennen hyväksyntää.','consumer_reference'=>'EU:n viralliset tiedot lakisääteisistä takuista','privacy_reference'=>'Euroopan komission tiedot tietosuojasta',
+    'nav'=>['terms'=>'Myyntiehdot','delivery'=>'Kontin toimitus','returns'=>'Palautukset ja hyvitykset','warranty'=>'Lakisääteinen takuu','payment'=>'Maksaminen','privacy'=>'Tietosuoja','legal-notice'=>'Oikeudelliset tiedot'],
+    'pages'=>[
+        'terms'=>['title'=>'Myyntiehdot','intro'=>'Ostoskorin vahvistaminen rekisteröi tilauksen yhteenvedossa näytetyillä tuotehinnoilla ja veroilla.','sections'=>[
+            ['heading'=>'Tilauksen rekisteröinti ja peruutus','paragraphs'=>['Ostoskorin lähettäminen rekisteröi tilauksen ja lähettää tietosi C.E.S. Containerille. Yhteenvedon tuotehinnat ja verot ovat tilaukseen sovellettavat hinnat, eikä niitä neuvotella uudelleen. Voit peruuttaa ennen maksua vastaamalla selkeästi tilausvahvistukseen.']],
+            ['heading'=>'Maksu ja kuljetus','paragraphs'=>['Maksua ei veloiteta tilauksen lähettämisen yhteydessä. Pyydä viralliset pankkitiedot vastaamalla vahvistusviestiin ja maksa vain varmennetulle C.E.S. Containerin tilille. Kontin kuljetus ja toimitus arvioidaan erikseen määränpään ja toimituspaikan mukaan ja ilmoitetaan ennen maksua.']],
+            ['heading'=>'Saatavuus ja kuluttajansuoja','paragraphs'=>['Saatavuus tarkistetaan tilauksen käsittelyn yhteydessä. Pakottavia kuluttajaoikeuksia ei rajoiteta.'],'link'=>'consumer'],
+        ]],
+        'delivery'=>['title'=>'Kontin toimitus','intro'=>'Kuljetus arvioidaan kontin, määränpään ja paikan todellisten olosuhteiden mukaan.','sections'=>[
+            ['heading'=>'Kuljetus hinnoitellaan erikseen','paragraphs'=>['Kuljetustapa, kustannukset, arvioitu aikataulu, toimituspaikka sekä purku- ja nostotyöt eritellään kirjallisessa tarjouksessa. Tapauksen mukaan voidaan harkita nosturiautoa, sivulastaajaa tai muuta sopivaa kalustoa. Tuotteen näkyminen luettelossa ei takaa yleistä toimitushintaa tai -aikaa.']],
+            ['heading'=>'Toimituspaikan valmistelu','paragraphs'=>['Ilmoita ennen hyväksyntää tarkka osoite, kulkurajoitukset, käytettävissä oleva leveys ja korkeus, maan kantavuus ja laatu, paikalliset rajoitukset sekä purkutarpeet. Asiakas varmistaa, että paikka soveltuu sovitulle kalustolle ja on valmis toimitukseen.']],
+            ['heading'=>'Aikataulu ja vastaanotto','paragraphs'=>['Toimituspäivä tai -jakso sovitaan kirjallisesti logistiikan tarkistamisen jälkeen. Osoitteen, kulun tai paikan valmiuden muutokset voivat edellyttää uutta arviota. Tarkista kontin näkyvä kunto vastaanotettaessa ja ilmoita ongelmista viipymättä; lakisääteiset oikeudet säilyvät.']],
+        ]],
+        'returns'=>['title'=>'Palautukset ja hyvitykset','intro'=>'Voit peruuttaa tilauksen vastaamalla selkeästi sähköpostiin ennen maksua; lakisääteiset oikeudet säilyvät.','sections'=>[
+            ['heading'=>'Peruutus ennen maksua','paragraphs'=>['Ostoskorin lähettämisen jälkeen tilaus rekisteröidään. Voit peruuttaa ennen maksua vastaamalla selkeästi tilausvahvistukseen ja ilmoittamalla tilausviitteen. Tilauksen lähettämisen yhteydessä ei veloiteta maksua.']],
+            ['heading'=>'Sopimuksen tekemisen jälkeen','paragraphs'=>['Kuluttajiin sovelletaan etäsopimusten lakisääteisiä peruuttamisoikeuksia silloin, kun ne ovat voimassa; määräaika on yleensä 14 päivää tavaran vastaanottamisesta, lain poikkeukset huomioiden. Tuote- tai räätälöintikohtaiset poikkeukset arvioidaan sopimuskohtaisesti.']],
+            ['heading'=>'Palautuskuljetus ja hyvitys','paragraphs'=>['Kontti on kookas tuote: nouto, kulku ja kuljetus sovitaan yrityksen kanssa. Sovellettavat kulut ja ehdot ilmoitetaan lain ja ennen sopimusta annettujen tietojen mukaisesti; maksutonta palautusta ei luvata yleisesti.']],
+            ['heading'=>'Virheellinen tai vaurioitunut tuote','paragraphs'=>['Lakisääteiset oikeudet virheiden ja sopimuksenvastaisuuden osalta säilyvät. Kuvaile ongelma ja liitä mahdollisuuksien mukaan kuvat sekä tuote- ja asianumerot. Menettely ei korvaa lakisääteisiä oikeuksiasi.'],'link'=>'consumer'],
+        ]],
+        'warranty'=>['title'=>'Lakisääteinen takuu','intro'=>'Takuuoikeudet riippuvat sopimuksesta, kontin kunnosta ja pakottavasta sovellettavasta laista.','sections'=>[
+            ['heading'=>'Lakisääteiset virhevastuuoikeudet','paragraphs'=>['Kuluttajan lakisääteiset oikeudet sopimuksenvastaisuuden osalta määräytyvät sopimukseen sovellettavan lain mukaan. Ne ovat erillisiä mahdollisesta kaupallisesta takuusta.']],
+            ['heading'=>'Uudet ja käytetyt kontit','paragraphs'=>['Kontin uusi tai käytetty kunto ja tiedossa olevat ominaisuudet ilmoitetaan hyväksytyssä tarjouksessa. Lakisääteinen kesto ja menettely voivat vaihdella tavaran kunnon ja maan mukaan; tämä sivu ei lupaa kaikille yksiköille samaa kaupallista takuuta. Lisätakuu on kuvattava kirjallisesti kyseisen kontin osalta.']],
+            ['heading'=>'Ilmoita ongelmasta','paragraphs'=>['Ota yhteyttä ja ilmoita tarjous- tai tilausviite, kontin tunnus ja ongelman kuvaus; valokuvat voivat auttaa selvityksessä. Tämä menettely ei rajoita lakisääteisiä oikeuksiasi.'],'link'=>'consumer'],
+        ]],
+        'payment'=>['title'=>'Maksaminen','intro'=>'Maksu suoritetaan tilauksen rekisteröinnin jälkeen, kun asiakas pyytää virallisia maksutietoja.','sections'=>[
+            ['heading'=>'Pyydä viralliset pankkitiedot','paragraphs'=>['Ostoskorin lähettäminen rekisteröi tilauksen mutta ei käynnistä maksua. Pyydä viralliset pankkitiedot vastaamalla tilausviestiin ja tarkista saaja ja viite ennen tilisiirtoa.']],
+            ['heading'=>'Kirjallisesti sovitut ehdot','paragraphs'=>['Maksutapa, maksunsaaja, summa, eräpäivä ja ehdot esitetään hyväksytyssä tarjouksessa tai yrityksen maksuohjeissa. Muualla näkyvät pankkitiedot eivät korvaa niitä.']],
+            ['heading'=>'Maksun vahvistus','paragraphs'=>['Maksutosite ei vahvista varojen saapumista. Yritys vahvistaa maksun, kun suoritus on tarkistettu. Jos pankkitietojen epäillään muuttuneen, ota yritykseen yhteyttä tavallista yhteyskanavaa käyttäen ennen maksua.']],
+        ]],
+        'privacy'=>['title'=>'Tietosuojaseloste','intro'=>'Näin käytämme tarjouspyyntöihin, viestintään ja sivuston toimintaan tarvittavia tietoja.','sections'=>[
+            ['heading'=>'Rekisterinpitäjä ja tiedot','paragraphs'=>['Sivustoa ylläpitää C.E.S. Container; yhteystiedot ovat oikeudellisissa tiedoissa. Pyyntö voi sisältää nimen, sähköpostin, toimitusosoitteen, maan, valitut tuotteet, määrät ja lisätiedot. Puhelin-, yritys- ja ALV-tiedot käsitellään, jos annat ne.']],
+            ['heading'=>'Käyttötarkoitus ja sähköpostit','paragraphs'=>['Tietoja käytetään pyynnön käsittelyyn, PDF-yhteenvedon valmisteluun, vastaamiseen sekä tarjouksen tai sopimuksen seurantaan. Viesti voidaan lähettää pääosoitteeseen ja ylläpitäjän määrittämille toissijaisille vastaanottajille. Pyyntö ei tilaa markkinointiviestejä.']],
+            ['heading'=>'Säilytys ja palveluntarjoajat','paragraphs'=>['Tietoja säilytetään asian käsittelyn ajan ja sen jälkeen sovellettavien lakisääteisten velvoitteiden ja määräaikojen mukaisesti. Sähköpostit ja liitteet kulkevat määritettyjen viestipalvelujen kautta; Hostinger ylläpitää sivustoa. Teknisiin lokeihin voidaan tallentaa yhteystietoja turvallisuutta ja vianmääritystä varten.']],
+            ['heading'=>'Evästeet ja analytiikka','paragraphs'=>['Google Analytics ladataan vasta suostumuksesi jälkeen. Voit kieltäytyä tai peruuttaa suostumuksen alatunnisteen evästeasetuksista; tämä ei estä selaamista tai tarjouspyyntöä.']],
+            ['heading'=>'Oikeutesi ja yhteydenotto','paragraphs'=>['Sovellettavan lain mukaan voit pyytää pääsyä tietoihin, niiden oikaisua, poistamista tai käsittelyn rajoittamista ja vastustaa tiettyä käsittelyä. Ota yhteyttä oikeudellisissa tiedoissa mainittuun sähköpostiin tai toimivaltaiseen valvontaviranomaiseen.'],'link'=>'privacy'],
+        ]],
+        'legal-notice'=>['title'=>'Oikeudelliset tiedot','intro'=>'Alla olevat tiedot ovat C.E.S. Containerin ylläpitoasetuksista.','sections'=>[
+            ['heading'=>'Sivuston julkaisija','paragraphs'=>['Sivustoa containerequipmentservices.lt ylläpitää yllä olevissa yhteystiedoissa mainittu yritys. Käytä julkaistuja yhteystietoja sivustoa, tuotteita tai tarjouksia koskevissa kysymyksissä.']],
+            ['heading'=>'Hosting ja sisältö','paragraphs'=>['Sivuston isännöi Hostinger. Tavaramerkkejä, logoja, tekstejä, valokuvia ja muuta sisältöä suojaavat sovellettavat lait. Uudelleenkäyttö edellyttää oikeudenhaltijan lupaa, jollei laissa säädetystä poikkeuksesta muuta johdu.']],
+            ['heading'=>'Tuotetiedot','paragraphs'=>['Luettelon hinnat ja tekniset tiedot ovat suuntaa-antavia ja tarkistetaan kirjallisessa tarjouksessa. Kuvat ja kuvaukset voivat vaihdella saatavilla olevan yksikön mukaan; hyväksytty tarjous sisältää vahvistetut ehdot.']],
+        ]],
+    ],
+];

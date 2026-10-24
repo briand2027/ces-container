@@ -55,6 +55,7 @@
                             @if($log['operation'])<small class="d-block text-muted">{{ $log['operation'] }}</small>@endif
                             @if($log['message_id'])<small class="d-block text-muted">Message #{{ $log['message_id'] }}</small>@endif
                             @if($log['order_id'])<small class="d-block text-muted">Commande #{{ $log['order_id'] }}</small>@endif
+                            @if($log['quote_reference'])<small class="d-block text-muted">Devis {{ $log['quote_reference'] }}</small>@elseif($log['quote_id'])<small class="d-block text-muted">Devis #{{ $log['quote_id'] }}</small>@endif
                             @if($log['admin_id'])<small class="d-block text-muted">Admin #{{ $log['admin_id'] }}</small>@endif
                         </td>
                         <td>

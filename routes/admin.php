@@ -43,6 +43,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::get('devis', [QuoteRequestController::class, 'index'])->name('quotes.index');
         Route::get('devis/{quote}', [QuoteRequestController::class, 'show'])->name('quotes.show');
         Route::put('devis/{quote}/statut', [QuoteRequestController::class, 'status'])->name('quotes.status');
+        Route::post('devis/{quote}/relancer', [QuoteRequestController::class, 'remind'])->name('quotes.remind');
 
         Route::get('messages', [MessageController::class, 'index'])->name('messages.index');
         Route::get('messages/unread-count', [MessageController::class, 'unreadCount'])->name('messages.unread-count');

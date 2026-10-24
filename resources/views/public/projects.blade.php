@@ -3,6 +3,7 @@
 @section('meta_description', __('projects_intro'))
 
 @section('content')
+<main id="main-content">
 <section class="page-hero bg-slideshow" style="--hero-image: url('{{ asset('images/toptainer.jpg') }}'); --hero-image-2: url('{{ asset('images/Special_equipment.jpg') }}'); --hero-image-3: url('{{ asset('images/transports.avif') }}')">
     <div class="container">
         <div class="page-hero-content text-white">
@@ -77,4 +78,5 @@
         </div>
     </div>
 </section>
+</main>
 @endsection

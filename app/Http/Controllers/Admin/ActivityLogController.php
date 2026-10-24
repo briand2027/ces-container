@@ -94,6 +94,8 @@ class ActivityLogController extends Controller
             'operation' => $context['operation'] ?? null,
             'message_id' => $context['message_id'] ?? null,
             'order_id' => $context['order_id'] ?? null,
+            'quote_id' => $context['quote_id'] ?? null,
+            'quote_reference' => $context['quote_reference'] ?? null,
             'file' => $file,
         ];
     }

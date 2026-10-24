@@ -3,6 +3,7 @@
 @section('meta_description', __('about_intro'))
 
 @section('content')
+<main id="main-content">
 <section class="page-hero bg-slideshow" style="--hero-image: url('{{ asset('images/ccc.jpg') }}'); --hero-image-2: url('{{ asset('images/images_co.webp') }}'); --hero-image-3: url('{{ asset('images/toptainer.jpg') }}')">
     <div class="container">
         <div class="page-hero-content text-white">
@@ -49,4 +50,5 @@
         </div>
     </div>
 </section>
+</main>
 @endsection

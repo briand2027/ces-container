@@ -5,10 +5,29 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Models\Container;
 use App\Models\Service;
+use App\Models\SystemSetting;
 use Illuminate\Http\Request;
 
 class PageController extends Controller
 {
+    public function legal(string $page)
+    {
+        abort_unless(in_array($page, ['terms', 'delivery', 'returns', 'warranty', 'privacy', 'legal-notice', 'payment'], true), 404);
+
+        return view('public.legal', [
+            'page' => $page,
+            'company' => SystemSetting::getValue('entreprise_nom', 'C.E.S. Container'),
+            'identity' => array_filter([
+                'form' => SystemSetting::getValue('entreprise_forme'),
+                'registration' => SystemSetting::getValue('entreprise_numero_registre'),
+                'vat' => SystemSetting::getValue('entreprise_tva'),
+                'address' => SystemSetting::getValue('entreprise_adresse'),
+                'email' => SystemSetting::getValue('entreprise_email') ?: SystemSetting::getValue('email_expediteur_principal'),
+                'phone' => SystemSetting::getValue('entreprise_telephone'),
+            ]),
+        ]);
+    }
+
     public function services()
     {
         return view('public.services', [

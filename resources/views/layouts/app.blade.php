@@ -39,29 +39,47 @@
     <meta property="og:image" content="@yield('og_image', asset('images/image_logo.jpeg'))">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="shortcut icon" href="{{ asset('images/image_logo.jpeg') }}" type="image/jpeg">
     <link rel="icon" href="{{ asset('images/image_logo.jpeg') }}" type="image/jpeg">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+    @stack('head')
+    @php
+        $organizationEmail = \App\Models\SystemSetting::getValue('entreprise_email') ?: \App\Models\SystemSetting::getValue('email_expediteur_principal');
+        $organizationPhone = \App\Models\SystemSetting::getValue('entreprise_telephone');
+        $organizationJsonLd = array_filter([
+            '@context' => 'https://schema.org',
+            '@type' => 'Organization',
+            '@id' => url('/').'#organization',
+            'name' => 'C.E.S. Container',
+            'url' => url('/'),
+            'logo' => asset('images/image_logo.jpeg'),
+            'email' => $organizationEmail,
+            'telephone' => $organizationPhone,
+        ]);
+    @endphp
+    <script type="application/ld+json">{!! json_encode($organizationJsonLd, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT) !!}</script>
     @stack('structured-data')
 </head>
 <body>
-<nav class="navbar navbar-expand-lg custom-navbar sticky-top">
+<a class="skip-link" href="#main-content">{{ __('skip_to_content') }}</a>
+<nav class="navbar navbar-expand-lg custom-navbar sticky-top" aria-label="{{ __('navigation') }}">
     <div class="container">
         <a class="navbar-brand d-flex align-items-center gap-2" href="{{ route('home') }}">
             <img src="{{ asset('images/image_logo.jpeg') }}" alt="C.E.S. Container" class="brand-logo">
             <span class="brand-text">C.E.S. CONTAINER</span>
         </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav" aria-label="Menu">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav" aria-controls="nav" aria-expanded="false" aria-label="{{ __('navigation') }}">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="nav">
             <ul class="navbar-nav ms-auto align-items-lg-center">
                 @php($nav=[['home',__('home')],['shop',__('shop')],['services',__('services')],['projects',__('projects')],['gallery',__('gallery')],['about',__('about')],['contact',__('contact')]])
                 @foreach($nav as [$route,$label])
-                    <li class="nav-item"><a class="nav-link {{ request()->routeIs($route) ? 'active' : '' }}" href="{{ route($route) }}">{{ $label }}</a></li>
+                    <li class="nav-item"><a class="nav-link {{ request()->routeIs($route) ? 'active' : '' }}" href="{{ route($route) }}" @if(request()->routeIs($route)) aria-current="page" @endif>{{ $label }}</a></li>
                 @endforeach
                 <li class="nav-item dropdown ms-lg-2">
                     <button class="btn btn-outline-success btn-sm dropdown-toggle language-toggle" data-bs-toggle="dropdown" aria-expanded="false">
@@ -96,8 +114,8 @@
 
 <footer class="footer py-5 mt-5">
     <div class="container">
-        <div class="row g-4">
-            <div class="col-lg-5">
+        <div class="row g-4 footer-main">
+            <div class="col-lg-4">
                 <div class="footer-brand">C.E.S. CONTAINER</div>
                 <p class="mt-3 mb-0">{{ __('footer_intro') }}</p>
                 <div class="social-links mt-4" aria-label="Social media">
@@ -107,8 +125,8 @@
                     <a class="social-link" href="https://www.instagram.com/containerequipments/" target="_blank" rel="noopener" aria-label="Instagram"><i class="bi bi-instagram" aria-hidden="true"></i><span class="visually-hidden">Instagram</span></a>
                 </div>
             </div>
-            <div class="col-sm-6 col-lg-3">
-                <h6>{{ __('navigation') }}</h6>
+            <div class="col-sm-6 col-lg-2">
+                <h2 class="h6">{{ __('navigation') }}</h2>
                 <ul class="list-unstyled">
                     <li><a href="{{ route('shop') }}">{{ __('shop') }}</a></li>
                     <li><a href="{{ route('services') }}">{{ __('services') }}</a></li>
@@ -117,16 +135,29 @@
                     <li><a href="{{ route('contact') }}">{{ __('contact') }}</a></li>
                 </ul>
             </div>
-            <div class="col-sm-6 col-lg-4">
-                <h6>{{ __('need_information') }}</h6>
+            <div class="col-sm-6 col-lg-3">
+                <h2 class="h6">{{ __('need_information') }}</h2>
                 <p>{{ __('footer_help') }}</p>
-                <p class="small mb-2">{{ __('address_value') }}</p>
+                @php($footerAddress = \App\Models\SystemSetting::getValue('entreprise_adresse'))
+                @php($footerEmail = \App\Models\SystemSetting::getValue('entreprise_email') ?: \App\Models\SystemSetting::getValue('email_expediteur_principal'))
+                @php($footerPhone = \App\Models\SystemSetting::getValue('entreprise_telephone'))
+                @if($footerAddress)<p class="small mb-2">{{ $footerAddress }}</p>@endif
+                @if($footerEmail)<p class="small mb-2"><a href="mailto:{{ $footerEmail }}">{{ $footerEmail }}</a></p>@endif
+                @if($footerPhone)<p class="small mb-2"><a href="tel:{{ preg_replace('/[^+0-9]/','',$footerPhone) }}">{{ $footerPhone }}</a></p>@endif
                 <a class="btn btn-outline-light" href="{{ route('contact') }}">{{ __('contact_us') }}</a>
+            </div>
+            <div class="col-sm-6 col-lg-3">
+                <h2 class="h6">{{ __('legal.information') }}</h2>
+                <ul class="list-unstyled footer-legal-links">
+                    @foreach(['terms'=>'terms','delivery'=>'delivery','returns'=>'returns','warranty'=>'warranty','payment'=>'payment','privacy'=>'privacy','legal-notice'=>'notice'] as $key=>$routeName)
+                        <li><a href="{{ route('legal.'.$routeName) }}">{{ __('legal.nav.'.$key) }}</a></li>
+                    @endforeach
+                </ul>
             </div>
         </div>
         <hr class="border-light opacity-25 my-4">
         <div class="d-flex flex-wrap justify-content-between align-items-center gap-2">
-            <div class="small opacity-75">&copy; {{ date('Y') }} C.E.S. Container. {{ __('copyright') }}</div>
+            <div class="small opacity-75">&copy; {{ now()->year }} C.E.S. Container. {{ __('copyright') }}</div>
             <button id="analyticsConsentOpen" class="btn btn-link btn-sm text-light p-0" type="button">{{ __('analytics_consent_settings') }}</button>
         </div>
     </div>

@@ -3,6 +3,7 @@
 @section('meta_description', __('contact_help'))
 
 @section('content')
+<main id="main-content">
 <section class="page-hero bg-slideshow" style="--hero-image: url('{{ asset('images/transportes.png') }}'); --hero-image-2: url('{{ asset('images/transport.jpg') }}'); --hero-image-3: url('{{ asset('images/centre.png') }}')">
     <div class="container">
         <div class="page-hero-content text-white">
@@ -41,4 +42,5 @@
         </div>
     </div>
 </div>
+</main>
 @endsection

@@ -3,6 +3,7 @@
 @section('meta_description', __('services_intro'))
 
 @section('content')
+<main id="main-content">
 <section class="page-hero services-hero bg-slideshow" style="--hero-image: url('{{ asset('images/transport.jpg') }}'); --hero-image-2: url('{{ asset('images/Container_transport.jpg') }}'); --hero-image-3: url('{{ asset('images/Special_equipment.jpg') }}')">
     <div class="container">
         <div class="page-hero-content text-white text-center">
@@ -118,4 +119,5 @@ document.addEventListener('click', (event) => {
 });
 </script>
 @endpush
+</main>
 @endsection

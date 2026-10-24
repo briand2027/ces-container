@@ -7,6 +7,12 @@
 @section('content')
 @php
     $images = collect([$product->image_principale])->merge($product->images_secondaires ?? [])->filter()->values();
+    $condition = match (mb_strtolower(trim((string) $product->etat))) {
+        'neuf', 'nuovo', 'nuova', 'new' => 'https://schema.org/NewCondition',
+        'occasion', 'usato', 'usata', 'used', 'seconda mano' => 'https://schema.org/UsedCondition',
+        'reconditionne', 'reconditionné', 'ricondizionato', 'ricondizionata', 'refurbished' => 'https://schema.org/RefurbishedCondition',
+        default => null,
+    };
     $productJsonLd = [
         '@context' => 'https://schema.org',
         '@type' => 'Product',
@@ -14,19 +20,22 @@
         'description' => strip_tags((string) $product->localizedDescription()),
         'sku' => (string) $product->reference,
         'image' => $images->map(fn ($image) => asset($image))->all(),
-        'brand' => ['@type' => 'Brand', 'name' => 'C.E.S. Container'],
         'offers' => $product->prix_vente > 0 ? [
             '@type' => 'Offer',
             'url' => route('shop.show', $product),
             'priceCurrency' => 'EUR',
             'price' => number_format((float) $product->prix_vente * (1 + $vatRate / 100), 2, '.', ''),
             'availability' => $product->quantite_stock > 0 ? 'https://schema.org/InStock' : 'https://schema.org/OutOfStock',
-            'itemCondition' => in_array(mb_strtolower((string) $product->etat), ['neuf', 'nuovo', 'new'], true) ? 'https://schema.org/NewCondition' : 'https://schema.org/UsedCondition',
+            ...($condition ? ['itemCondition' => $condition] : []),
         ] : null,
     ];
 @endphp
 @push('structured-data')<script type="application/ld+json">{!! json_encode($productJsonLd, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT) !!}</script>@endpush
+@push('head')
+    @if($images->isNotEmpty())<link rel="preload" as="image" href="{{ asset($images->first()) }}" fetchpriority="high">@endif
+@endpush
 
+<main id="main-content">
 <section class="page-hero compact-hero" style="--hero-image: url('{{ $product->image_principale ? asset($product->image_principale) : asset('images/container_sale.jpg') }}')">
     <div class="container">
         <div class="page-hero-content text-white">
@@ -41,7 +50,7 @@
     <div class="row g-5">
         <div class="col-lg-6">
             <div class="product-detail-media">
-                <img src="{{ $images->isNotEmpty() ? asset($images->first()) : asset('images/container_sale.jpg') }}" class="main-image" alt="{{ $product->reference }}">
+                <img src="{{ $images->isNotEmpty() ? asset($images->first()) : asset('images/container_sale.jpg') }}" class="main-image" alt="{{ $product->reference }}" width="1200" height="900" fetchpriority="high">
                 @if($images->count() > 1)
                     <div class="thumbnail-container">
                         @foreach($images as $img)
@@ -85,4 +94,5 @@
         </div>
     </div>
 </div>
+</main>
 @endsection

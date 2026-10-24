@@ -10,12 +10,14 @@ class MerchantFeedController extends Controller
 {
     public function index(): Response
     {
+        app()->setLocale('it');
         $products = Container::query()
             ->with('category')
             ->where('statut', 'disponible')
             ->where('quantite_stock', '>', 0)
             ->where('prix_vente', '>', 0)
             ->whereNotNull('image_principale')
+            ->where('image_principale', '!=', '')
             ->orderBy('id')
             ->get();
 
