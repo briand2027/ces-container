@@ -1874,13 +1874,26 @@ span.subcategory-link {
     z-index: 2000;
     top: .75rem;
     left: .75rem;
-    padding: .7rem 1rem;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
     color: #fff;
     background: #176b4b;
     border-radius: 4px;
-    transform: translateY(-180%);
+    visibility: hidden;
 }
-.skip-link:focus { transform: translateY(0); }
+.skip-link:focus {
+    width: auto;
+    height: auto;
+    padding: .7rem 1rem;
+    overflow: visible;
+    clip-path: none;
+    white-space: normal;
+    visibility: visible;
+}
 .skip-link:focus-visible, a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible {
     outline: 3px solid #f0b429;
     outline-offset: 3px;
