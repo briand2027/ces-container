@@ -50,14 +50,27 @@
     <div class="row g-5">
         <div class="col-lg-6">
             <div class="product-detail-media">
-                <img src="{{ $images->isNotEmpty() ? asset($images->first()) : asset('images/optimized/container_sale.webp') }}" class="main-image" alt="{{ $product->reference }}" width="1200" height="900" fetchpriority="high" decoding="async">
+                @php($mainImage = $images->isNotEmpty() ? asset($images->first()) : asset('images/optimized/container_sale.webp'))
+                <div class="product-gallery" data-product-gallery>
+                    <div class="product-gallery-stage">
+                        <img src="{{ $mainImage }}" class="main-image" alt="{{ $product->reference }}" width="1200" height="900" fetchpriority="high" decoding="async" data-gallery-main>
+                        @if($images->count() > 1)
+                            <button class="gallery-nav gallery-nav-previous" type="button" aria-label="{{ __('previous') }}" data-gallery-step="-1"><i class="bi bi-chevron-left" aria-hidden="true"></i></button>
+                            <button class="gallery-nav gallery-nav-next" type="button" aria-label="{{ __('next') }}" data-gallery-step="1"><i class="bi bi-chevron-right" aria-hidden="true"></i></button>
+                        @endif
+                    </div>
                 @if($images->count() > 1)
-                    <div class="thumbnail-container">
+                    <div class="thumbnail-rail">
+                        <div class="thumbnail-container" role="group" aria-label="{{ __('gallery') }}" tabindex="0" data-gallery-thumbnails>
                         @foreach($images as $img)
-                            <img src="{{ asset($img) }}" class="thumbnail" alt="{{ $product->reference }}" width="240" height="180" loading="lazy" decoding="async">
+                            <button class="thumbnail-button {{ $loop->first ? 'is-active' : '' }}" type="button" aria-label="{{ $product->reference }} - {{ __('gallery') }} {{ $loop->iteration }}" aria-pressed="{{ $loop->first ? 'true' : 'false' }}" data-gallery-image="{{ asset($img) }}">
+                                <img src="{{ asset($img) }}" class="thumbnail" alt="" width="240" height="180" loading="lazy" decoding="async">
+                            </button>
                         @endforeach
+                        </div>
                     </div>
                 @endif
+                </div>
             </div>
         </div>
         <div class="col-lg-6">
@@ -96,3 +109,35 @@
 </div>
 </main>
 @endsection
+
+@push('scripts')
+<script>
+document.addEventListener('click', (event) => {
+    const gallery = event.target.closest('[data-product-gallery]');
+    if (!gallery) return;
+
+    const mainImage = gallery.querySelector('[data-gallery-main]');
+    const thumbnails = [...gallery.querySelectorAll('[data-gallery-image]')];
+    if (!mainImage || thumbnails.length < 2) return;
+
+    const stepButton = event.target.closest('[data-gallery-step]');
+    const thumbnailButton = event.target.closest('[data-gallery-image]');
+    let target = thumbnailButton;
+
+    if (stepButton) {
+        const currentIndex = Math.max(0, thumbnails.findIndex((button) => button.dataset.galleryImage === mainImage.src));
+        const nextIndex = (currentIndex + Number(stepButton.dataset.galleryStep) + thumbnails.length) % thumbnails.length;
+        target = thumbnails[nextIndex];
+    }
+
+    if (!target) return;
+    mainImage.src = target.dataset.galleryImage;
+    thumbnails.forEach((button) => {
+        const selected = button === target;
+        button.classList.toggle('is-active', selected);
+        button.setAttribute('aria-pressed', String(selected));
+    });
+    target.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+});
+</script>
+@endpush
