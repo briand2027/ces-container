@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    <meta name="google-site-verification" content="ihWj5eV4IlzypcSP4RsiVcMezycQq553tEcPK3qs5R0">
     @php
         $pageTitle = trim($__env->yieldContent('meta_title'));
         $pageTitle = $pageTitle ?: match (request()->route()?->getName()) {
