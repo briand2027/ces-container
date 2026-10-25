@@ -2,10 +2,11 @@
 @section('meta_title', __('search').' | C.E.S. Container')
 @section('meta_description', __('search_intro'))
 @section('robots', 'noindex,follow')
+@push('head')<link rel="preload" as="image" href="{{ asset('images/optimized/arriere.webp') }}" fetchpriority="high">@endpush
 
 @section('content')
 <main id="main-content">
-<section class="page-hero bg-slideshow" style="--hero-image: url('{{ asset('images/arriere.jpg') }}'); --hero-image-2: url('{{ asset('images/transport.jpg') }}'); --hero-image-3: url('{{ asset('images/centre.png') }}')">
+<section class="page-hero bg-slideshow" data-hero-image-2="{{ asset('images/optimized/transport.webp') }}" data-hero-image-3="{{ asset('images/optimized/centre.webp') }}" style="--hero-image: url('{{ asset('images/optimized/arriere.webp') }}')">
     <div class="container">
         <div class="page-hero-content text-white">
             <span class="eyebrow">{{ __('search') }}</span>
@@ -27,7 +28,7 @@
         @forelse($products as $p)
             <div class="col-md-6 col-lg-4">
                 <article class="product-card h-100">
-                    <div class="product-image"><img src="{{ $p->image_principale ? asset($p->image_principale) : asset('images/container_sale.jpg') }}" alt="{{ $p->reference }}"></div>
+                    <div class="product-image"><img src="{{ $p->image_principale ? asset($p->image_principale) : asset('images/optimized/container_sale.webp') }}" alt="{{ $p->reference }}" width="800" height="550" loading="lazy" decoding="async"></div>
                     <div class="product-content">
                         <div class="text-muted small">{{ $p->category->nom ?? '' }}</div>
                         <h3>{{ $p->reference }}</h3>

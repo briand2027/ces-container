@@ -4,7 +4,7 @@
     --primary-soft: #eaf8ee;
     --accent-color: #1a9aa2;
     --ink: #17202a;
-    --muted: #657180;
+    --muted: #56616b;
     --line: #e6ece8;
     --surface: #ffffff;
     --page: #f6f8f7;
@@ -18,7 +18,7 @@
 
 body {
     margin: 0;
-    font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     color: var(--ink);
     background: var(--page);
     line-height: 1.6;
@@ -27,6 +27,14 @@ body {
 
 img {
     max-width: 100%;
+}
+
+@font-face {
+    font-family: "bootstrap-icons";
+    src: url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/fonts/bootstrap-icons.woff2?dd67030699838ea613ee6dbda90effa6") format("woff2");
+    font-style: normal;
+    font-weight: normal;
+    font-display: swap;
 }
 
 a {
@@ -123,7 +131,7 @@ a {
 }
 
 .bg-slideshow {
-    animation: bgPan 18s ease-in-out infinite alternate;
+    animation: none;
 }
 
 .bg-slideshow::before {
@@ -271,9 +279,14 @@ a {
 
 .section-reveal,
 .animated-card {
+    transform: translateY(0);
+    transition: opacity .7s ease, transform .7s ease;
+}
+
+.motion-ready .section-reveal:not(.is-visible),
+.motion-ready .animated-card:not(.is-visible) {
     opacity: 0;
     transform: translateY(24px);
-    transition: opacity .7s ease, transform .7s ease;
 }
 
 .section-reveal.is-visible,
@@ -922,7 +935,7 @@ span.subcategory-link {
 }
 
 .pagination .disabled .page-link {
-    color: #9aa5a0;
+    color: #66716d;
     background: #f3f6f4;
     box-shadow: none;
 }
@@ -1139,18 +1152,19 @@ span.subcategory-link {
 }
 
 .footer {
-    color: rgba(255, 255, 255, .72);
+    color: #d8e2de;
     background: linear-gradient(135deg, #111816, #24302c) !important;
 }
 
 .footer-brand,
-.footer h6 {
+.footer h6,
+.footer h2.h6 {
     color: #ffffff;
     font-weight: 800;
 }
 
 .footer a {
-    color: rgba(255, 255, 255, .76);
+    color: #d8e2de;
     text-decoration: none;
 }
 
@@ -1362,7 +1376,7 @@ span.subcategory-link {
 .home-products-section {
     background:
         linear-gradient(180deg, rgba(255, 255, 255, .94), rgba(241, 247, 244, .94)),
-        url("../images/container_sale.jpg") center/cover fixed;
+        url("../images/optimized/container_sale.webp") center/cover;
 }
 
 .home-product-card {
@@ -1378,9 +1392,8 @@ span.subcategory-link {
 }
 
 .home-product-img {
+    display: block;
     min-height: 235px;
-    background-size: cover;
-    background-position: center;
 }
 
 .home-product-overlay {

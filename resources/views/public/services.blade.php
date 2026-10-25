@@ -1,10 +1,11 @@
 @extends('layouts.app')
 @section('meta_title', __('services').' | C.E.S. Container')
 @section('meta_description', __('services_intro'))
+@push('head')<link rel="preload" as="image" href="{{ asset('images/optimized/transport.webp') }}" fetchpriority="high">@endpush
 
 @section('content')
 <main id="main-content">
-<section class="page-hero services-hero bg-slideshow" style="--hero-image: url('{{ asset('images/transport.jpg') }}'); --hero-image-2: url('{{ asset('images/Container_transport.jpg') }}'); --hero-image-3: url('{{ asset('images/Special_equipment.jpg') }}')">
+<section class="page-hero services-hero bg-slideshow" data-hero-image-2="{{ asset('images/optimized/Container_transport.webp') }}" data-hero-image-3="{{ asset('images/optimized/Special_equipment.webp') }}" style="--hero-image: url('{{ asset('images/optimized/transport.webp') }}')">
     <div class="container">
         <div class="page-hero-content text-white text-center">
             <span class="eyebrow">{{ __('services') }}</span>
@@ -46,7 +47,7 @@
                 @endphp
                 <article class="service-card service-media-card service-equal-card animated-card h-100">
                     <div class="service-card-img-wrap">
-                        <img src="{{ $service->image_url ? asset($service->image_url) : asset('images/transport.jpg') }}" alt="{{ $service->nom }}" class="service-image">
+                        <img src="{{ $service->image_url ? asset($service->image_url) : asset('images/optimized/transport.webp') }}" alt="{{ $service->nom }}" class="service-image" width="1200" height="675" loading="lazy" decoding="async">
                         <span class="service-number">{{ str_pad($loop->iteration, 2, '0', STR_PAD_LEFT) }}</span>
                     </div>
                     <div class="service-card-body">

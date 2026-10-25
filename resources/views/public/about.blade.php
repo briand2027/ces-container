@@ -1,10 +1,11 @@
 @extends('layouts.app')
 @section('meta_title', __('about_title').' | C.E.S. Container')
 @section('meta_description', __('about_intro'))
+@push('head')<link rel="preload" as="image" href="{{ asset('images/optimized/ccc.webp') }}" fetchpriority="high">@endpush
 
 @section('content')
 <main id="main-content">
-<section class="page-hero bg-slideshow" style="--hero-image: url('{{ asset('images/ccc.jpg') }}'); --hero-image-2: url('{{ asset('images/images_co.webp') }}'); --hero-image-3: url('{{ asset('images/toptainer.jpg') }}')">
+<section class="page-hero bg-slideshow" data-hero-image-2="{{ asset('images/optimized/images_co.webp') }}" data-hero-image-3="{{ asset('images/optimized/toptainer.webp') }}" style="--hero-image: url('{{ asset('images/optimized/ccc.webp') }}')">
     <div class="container">
         <div class="page-hero-content text-white">
             <span class="eyebrow">{{ __('about') }}</span>

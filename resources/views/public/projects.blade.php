@@ -1,10 +1,11 @@
 @extends('layouts.app')
 @section('meta_title', __('projects').' | C.E.S. Container')
 @section('meta_description', __('projects_intro'))
+@push('head')<link rel="preload" as="image" href="{{ asset('images/optimized/toptainer.webp') }}" fetchpriority="high">@endpush
 
 @section('content')
 <main id="main-content">
-<section class="page-hero bg-slideshow" style="--hero-image: url('{{ asset('images/toptainer.jpg') }}'); --hero-image-2: url('{{ asset('images/Special_equipment.jpg') }}'); --hero-image-3: url('{{ asset('images/transports.avif') }}')">
+<section class="page-hero bg-slideshow" data-hero-image-2="{{ asset('images/optimized/Special_equipment.webp') }}" data-hero-image-3="{{ asset('images/transports.avif') }}" style="--hero-image: url('{{ asset('images/optimized/toptainer.webp') }}')">
     <div class="container">
         <div class="page-hero-content text-white">
             <span class="eyebrow">{{ __('projects') }}</span>
@@ -64,7 +65,7 @@
             @foreach($products as $product)
                 <article class="product-card animated-card">
                     <div class="product-image">
-                        <img src="{{ $product->image_principale ? asset($product->image_principale) : asset('images/container_sale.jpg') }}" alt="{{ $product->reference }}">
+                        <img src="{{ $product->image_principale ? asset($product->image_principale) : asset('images/optimized/container_sale.webp') }}" alt="{{ $product->reference }}" width="800" height="550" loading="lazy" decoding="async">
                         <span class="product-badge">{{ __('available') }}</span>
                     </div>
                     <div class="product-content">

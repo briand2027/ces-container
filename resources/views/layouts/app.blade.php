@@ -38,15 +38,13 @@
     <meta property="og:type" content="@yield('og_type', 'website')">
     <meta property="og:url" content="@yield('canonical', request()->url())">
     <meta property="og:image" content="@yield('og_image', asset('images/image_logo.jpeg'))">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="shortcut icon" href="{{ asset('images/image_logo.jpeg') }}" type="image/jpeg">
     <link rel="icon" href="{{ asset('images/image_logo.jpeg') }}" type="image/jpeg">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+    <link rel="preload" as="style" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"></noscript>
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}?v={{ filemtime(public_path('css/style.css')) }}">
     @stack('head')
     @php
         $organizationEmail = \App\Models\SystemSetting::getValue('entreprise_email') ?: \App\Models\SystemSetting::getValue('email_expediteur_principal');
@@ -177,20 +175,35 @@
         <button id="analyticsConsentAccept" class="btn btn-success" type="button">{{ __('analytics_consent_accept') }}</button>
     </div>
 </aside>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script>
 document.addEventListener('DOMContentLoaded', () => {
     const items = document.querySelectorAll('.section-reveal, .animated-card');
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('is-visible');
-                observer.unobserve(entry.target);
-            }
-        });
-    }, { threshold: 0.12 });
+    if ('IntersectionObserver' in window) {
+        document.documentElement.classList.add('motion-ready');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.12 });
 
-    items.forEach((item) => observer.observe(item));
+        items.forEach((item) => observer.observe(item));
+    }
+
+    window.addEventListener('load', () => {
+        const loadHeroSlides = () => {
+            document.querySelectorAll('.bg-slideshow[data-hero-image-2][data-hero-image-3]').forEach((hero) => {
+                hero.style.setProperty('--hero-image-2', `url("${hero.dataset.heroImage2}")`);
+                hero.style.setProperty('--hero-image-3', `url("${hero.dataset.heroImage3}")`);
+            });
+        };
+
+        if ('requestIdleCallback' in window) window.requestIdleCallback(loadHeroSlides, { timeout: 2500 });
+        else window.setTimeout(loadHeroSlides, 1200);
+    }, { once: true });
 
     const measurementId = 'G-CRS835M4NZ';
     const consentKey = 'ces-analytics-consent';

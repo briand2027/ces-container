@@ -1,6 +1,7 @@
 @extends('layouts.app')
 @section('meta_title', __('gallery').' | C.E.S. Container')
 @section('meta_description', __('gallery_intro'))
+@push('head')<link rel="preload" as="image" href="{{ asset('images/optimized/centre.webp') }}" fetchpriority="high">@endpush
 
 @section('content')
 @php
@@ -11,7 +12,7 @@
     $windowStart = max(1, $currentPage - 2);
     $windowEnd = min($lastPage, $currentPage + 2);
 @endphp
-<section class="page-hero bg-slideshow" style="--hero-image: url('{{ asset('images/centre.png') }}'); --hero-image-2: url('{{ asset('images/novobox.png') }}'); --hero-image-3: url('{{ asset('images/bureau.png') }}')">
+<section class="page-hero bg-slideshow" data-hero-image-2="{{ asset('images/optimized/novobox.webp') }}" data-hero-image-3="{{ asset('images/optimized/bureau.webp') }}" style="--hero-image: url('{{ asset('images/optimized/centre.webp') }}')">
     <div class="container">
         <div class="page-hero-content text-white">
             <span class="eyebrow">{{ __('gallery') }}</span>
@@ -56,7 +57,7 @@
     <div class="gallery-grid">
         @forelse($items as $item)
             <a class="gallery-item animated-card" href="{{ route('shop.show', $item) }}">
-                <img src="{{ asset($item->image_principale) }}" alt="{{ $item->reference }}">
+                <img src="{{ asset($item->image_principale) }}" alt="{{ $item->reference }}" width="800" height="600" loading="lazy" decoding="async">
                 <span>{{ $item->category?->localizedName() ?? $item->reference }}</span>
             </a>
         @empty

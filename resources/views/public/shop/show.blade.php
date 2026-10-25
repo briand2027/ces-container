@@ -50,11 +50,11 @@
     <div class="row g-5">
         <div class="col-lg-6">
             <div class="product-detail-media">
-                <img src="{{ $images->isNotEmpty() ? asset($images->first()) : asset('images/container_sale.jpg') }}" class="main-image" alt="{{ $product->reference }}" width="1200" height="900" fetchpriority="high">
+                <img src="{{ $images->isNotEmpty() ? asset($images->first()) : asset('images/optimized/container_sale.webp') }}" class="main-image" alt="{{ $product->reference }}" width="1200" height="900" fetchpriority="high" decoding="async">
                 @if($images->count() > 1)
                     <div class="thumbnail-container">
                         @foreach($images as $img)
-                            <img src="{{ asset($img) }}" class="thumbnail" alt="{{ $product->reference }}">
+                            <img src="{{ asset($img) }}" class="thumbnail" alt="{{ $product->reference }}" width="240" height="180" loading="lazy" decoding="async">
                         @endforeach
                     </div>
                 @endif

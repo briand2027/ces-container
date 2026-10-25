@@ -1,9 +1,10 @@
 @extends('layouts.app')
 @php($pageContent = __('legal.pages.'.$page))
 @section('meta_title', $pageContent['title'].' | C.E.S. Container')
+@push('head')<link rel="preload" as="image" href="{{ asset('images/optimized/ccc.webp') }}" fetchpriority="high">@endpush
 @section('meta_description', $pageContent['intro'])
 @section('content')
-<section class="page-hero bg-slideshow legal-hero" style="--hero-image:url('{{ asset('images/ccc.jpg') }}');--hero-image-2:url('{{ asset('images/images_co.webp') }}');--hero-image-3:url('{{ asset('images/toptainer.jpg') }}')">
+<section class="page-hero bg-slideshow legal-hero" data-hero-image-2="{{ asset('images/optimized/images_co.webp') }}" data-hero-image-3="{{ asset('images/optimized/toptainer.webp') }}" style="--hero-image:url('{{ asset('images/optimized/ccc.webp') }}')">
     <div class="container"><div class="page-hero-content text-white"><span class="eyebrow">C.E.S. Container · {{ __('legal.information') }}</span><h1 class="hero-title">{{ $pageContent['title'] }}</h1><p class="hero-subtitle">{{ $pageContent['intro'] }}</p></div></div>
 </section>
 <main id="main-content" class="container legal-page py-5 section-reveal">

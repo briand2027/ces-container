@@ -1,11 +1,11 @@
 @extends('layouts.app')
 @section('meta_title', __('home').' | C.E.S. Container')
 @section('meta_description', __('hero_subtitle'))
-@push('head')<link rel="preload" as="image" href="{{ asset('images/images_co.webp') }}" fetchpriority="high">@endpush
+@push('head')<link rel="preload" as="image" href="{{ asset('images/optimized/images_co.webp') }}" fetchpriority="high">@endpush
 
 @section('content')
 <main id="main-content">
-<section class="hero-section bg-slideshow" style="--hero-image: url('{{ asset('images/container_sale.jpg') }}'); --hero-image-2: url('{{ asset('images/transport.jpg') }}'); --hero-image-3: url('{{ asset('images/centre.png') }}')">
+<section class="hero-section bg-slideshow" data-hero-image-2="{{ asset('images/optimized/transport.webp') }}" data-hero-image-3="{{ asset('images/optimized/centre.webp') }}" style="--hero-image: url('{{ asset('images/optimized/container_sale.webp') }}')">
     <div class="container py-5">
         <div class="row align-items-center g-5 py-lg-5">
             <div class="col-lg-7">
@@ -23,7 +23,7 @@
                 </div>
             </div>
             <div class="col-lg-5">
-                <div class="hero-image"><img src="{{ asset('images/images_co.webp') }}" alt="C.E.S. Container" class="img-fluid rounded-4 shadow-lg" width="1600" height="1067" loading="eager" fetchpriority="high"></div>
+                <div class="hero-image"><img src="{{ asset('images/optimized/images_co.webp') }}" alt="C.E.S. Container" class="img-fluid rounded-4 shadow-lg" width="1600" height="1067" loading="eager" fetchpriority="high" decoding="async"></div>
             </div>
         </div>
     </div>
@@ -47,7 +47,7 @@
         <div class="home-card-grid">
             @foreach($serviceCards as [$image,$title,$text,$url])
                 <article class="home-service-card animated-card">
-                    <div class="home-service-icon"><img src="{{ asset('images/'.$image) }}" alt="{{ __($title) }}"></div>
+                    <div class="home-service-icon"><img src="{{ asset('images/'.$image) }}" alt="" aria-hidden="true" loading="lazy" decoding="async"></div>
                     <h3>{{ __($title) }}</h3>
                     <p>{{ __($text) }}</p>
                     <a href="{{ $url }}" class="btn btn-outline-success mt-auto">{{ __('learn_more') }}</a>
@@ -77,7 +77,7 @@
         <div class="home-card-grid">
             @foreach($categories as $category)
                 <article class="home-category-card animated-card">
-                    <img src="{{ $category->image_url ? asset($category->image_url) : asset('images/images.jpg') }}" alt="{{ $category->localizedName() }}">
+                    <img src="{{ $category->image_url ? asset($category->image_url) : asset('images/optimized/images.webp') }}" alt="{{ $category->localizedName() }}" width="800" height="600" loading="lazy" decoding="async">
                     <div class="home-category-overlay">
                         <h3>{{ $category->localizedName() }}</h3>
                         <p>{{ \Illuminate\Support\Str::limit($category->localizedDescription(), 80) }}</p>
@@ -87,7 +87,7 @@
             @endforeach
             @if($categories->count() % 2 !== 0)
                 <article class="home-category-card home-category-more animated-card">
-                    <img src="{{ asset('images/toptainer.jpg') }}" alt="{{ __('section_products_all') }}">
+                    <img src="{{ asset('images/optimized/toptainer.webp') }}" alt="{{ __('section_products_all') }}" width="800" height="600" loading="lazy" decoding="async">
                     <div class="home-category-overlay">
                         <h3>{{ __('section_products_all') }}</h3>
                         <p>{{ __('home_categories_description') }}</p>
@@ -111,7 +111,7 @@
         <div class="home-product-grid">
             @foreach($products as $product)
                 <article class="home-product-card animated-card">
-                    <div class="home-product-img" style="background-image:url('{{ $product->image_principale ? asset($product->image_principale) : asset('images/container_sale.jpg') }}')"></div>
+                    <img class="home-product-img" src="{{ $product->image_principale ? asset($product->image_principale) : asset('images/optimized/container_sale.webp') }}" alt="{{ $product->reference }}" width="800" height="600" loading="lazy" decoding="async">
                     <div class="home-product-overlay">
                         <a href="{{ route('shop.show', $product) }}" class="btn btn-success">{{ __('view_details') }}</a>
                     </div>

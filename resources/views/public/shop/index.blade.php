@@ -1,6 +1,7 @@
 @extends('layouts.app')
 @section('meta_title', __('shop').' | C.E.S. Container')
 @section('meta_description', __('shop_seo_intro'))
+@push('head')<link rel="preload" as="image" href="{{ asset('images/optimized/images.webp') }}" fetchpriority="high">@endpush
 @section('canonical', route('shop'))
 
 @section('content')
@@ -20,7 +21,7 @@
     $windowEnd = min($lastPage, $currentPage + 2);
 @endphp
 
-<section class="page-hero shop-hero bg-slideshow" style="--hero-image: url('{{ asset('images/images.jpg') }}'); --hero-image-2: url('{{ asset('images/abs.jpeg') }}'); --hero-image-3: url('{{ asset('images/Container_transport.jpg') }}')">
+<section class="page-hero shop-hero bg-slideshow" data-hero-image-2="{{ asset('images/optimized/abs.webp') }}" data-hero-image-3="{{ asset('images/optimized/Container_transport.webp') }}" style="--hero-image: url('{{ asset('images/optimized/images.webp') }}')">
     <div class="container">
         <div class="page-hero-content text-center text-white">
             <span class="eyebrow">{{ __('shop') }}</span>
@@ -204,7 +205,7 @@
                                     <meta itemprop="description" content="{{ \Illuminate\Support\Str::limit(strip_tags($product->localizedDescription()), 160) }}">
                                 @endif
                                 <a class="product-image product-img-link" href="{{ route('shop.show', $product) }}" itemprop="url">
-                                    <img src="{{ $product->image_principale ? asset($product->image_principale) : asset('images/container_sale.jpg') }}" alt="{{ $product->reference }}" itemprop="image">
+                                    <img src="{{ $product->image_principale ? asset($product->image_principale) : asset('images/optimized/container_sale.webp') }}" alt="{{ $product->reference }}" width="800" height="600" loading="lazy" decoding="async" itemprop="image">
                                     <span class="product-badge">{{ __('available') }}</span>
                                     @if($product->quantite_stock !== null)
                                         <span class="image-chip">{{ __('stock') }}: {{ $product->quantite_stock }}</span>
